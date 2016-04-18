@@ -148,14 +148,14 @@ public class LoginPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void usernameFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameFieldFocusLost
-        if("".equals(usernameField.getText()) || usernameField.getForeground() == Color.GRAY) {
+        if ("".equals(usernameField.getText()) || usernameField.getForeground() == Color.GRAY) {
             usernameField.setForeground(Color.GRAY);
             usernameField.setText("Username");
         }
     }//GEN-LAST:event_usernameFieldFocusLost
 
     private void usernameFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameFieldFocusGained
-        if(usernameField.getForeground() == Color.GRAY){
+        if (usernameField.getForeground() == Color.GRAY) {
             usernameField.setText("");
             usernameField.setForeground(Color.BLACK);
             usernameField.setCaretPosition(0);
@@ -163,14 +163,14 @@ public class LoginPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_usernameFieldFocusGained
 
     private void passwordFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFieldFocusLost
-        if("".equals(passwordField.getText()) || passwordField.getForeground() == Color.GRAY) {
+        if ("".equals(passwordField.getText()) || passwordField.getForeground() == Color.GRAY) {
             passwordField.setForeground(Color.GRAY);
             passwordField.setText("Password");
         }
     }//GEN-LAST:event_passwordFieldFocusLost
 
     private void passwordFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFieldFocusGained
-        if(passwordField.getForeground() == Color.GRAY){
+        if (passwordField.getForeground() == Color.GRAY) {
             passwordField.setText("");
             passwordField.setForeground(Color.BLACK);
             passwordField.setCaretPosition(0);

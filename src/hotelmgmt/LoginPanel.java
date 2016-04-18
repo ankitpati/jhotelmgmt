@@ -19,6 +19,8 @@
 
 package hotelmgmt;
 
+import java.awt.*;
+
 public class LoginPanel extends javax.swing.JPanel {
     final static long serialVersionUID = 0l;
 
@@ -81,6 +83,11 @@ public class LoginPanel extends javax.swing.JPanel {
 
         loginButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         loginButton.setText("Login");
+        loginButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginButtonActionPerformed(evt);
+            }
+        });
 
         cancelButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         cancelButton.setText("Cancel");
@@ -134,41 +141,45 @@ public class LoginPanel extends javax.swing.JPanel {
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         usernameField.setText("Username");
-        usernameField.setForeground(java.awt.Color.GRAY);
+        usernameField.setForeground(Color.GRAY);
         passwordField.setText("Password");
-        passwordField.setForeground(java.awt.Color.GRAY);
+        passwordField.setForeground(Color.GRAY);
         adminCheckbox.setSelected(false);
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void usernameFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameFieldFocusLost
-        if("".equals(usernameField.getText()) || usernameField.getForeground() == java.awt.Color.GRAY) {
-            usernameField.setForeground(java.awt.Color.GRAY);
+        if("".equals(usernameField.getText()) || usernameField.getForeground() == Color.GRAY) {
+            usernameField.setForeground(Color.GRAY);
             usernameField.setText("Username");
         }
     }//GEN-LAST:event_usernameFieldFocusLost
 
     private void usernameFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameFieldFocusGained
-        if(usernameField.getForeground() == java.awt.Color.GRAY){
+        if(usernameField.getForeground() == Color.GRAY){
             usernameField.setText("");
-            usernameField.setForeground(java.awt.Color.BLACK);
+            usernameField.setForeground(Color.BLACK);
             usernameField.setCaretPosition(0);
         }
     }//GEN-LAST:event_usernameFieldFocusGained
 
     private void passwordFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFieldFocusLost
-        if("".equals(passwordField.getText()) || passwordField.getForeground() == java.awt.Color.GRAY) {
-            passwordField.setForeground(java.awt.Color.GRAY);
+        if("".equals(passwordField.getText()) || passwordField.getForeground() == Color.GRAY) {
+            passwordField.setForeground(Color.GRAY);
             passwordField.setText("Password");
         }
     }//GEN-LAST:event_passwordFieldFocusLost
 
     private void passwordFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFieldFocusGained
-        if(passwordField.getForeground() == java.awt.Color.GRAY){
+        if(passwordField.getForeground() == Color.GRAY){
             passwordField.setText("");
-            passwordField.setForeground(java.awt.Color.BLACK);
+            passwordField.setForeground(Color.BLACK);
             passwordField.setCaretPosition(0);
         }
     }//GEN-LAST:event_passwordFieldFocusGained
+
+    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
+        
+    }//GEN-LAST:event_loginButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel activityLabel;

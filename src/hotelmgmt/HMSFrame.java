@@ -19,9 +19,11 @@
 
 package hotelmgmt;
 
+import javax.swing.*;
+
 public class HMSFrame extends javax.swing.JFrame {
     final static long serialVersionUID = 0l;
-    javax.swing.JPanel currentPanel;
+    JPanel currentPanel;
     static HMSFrame self;
 
     public HMSFrame() {

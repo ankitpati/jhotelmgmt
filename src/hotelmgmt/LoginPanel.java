@@ -20,6 +20,8 @@
 package hotelmgmt;
 
 import java.awt.*;
+import javax.swing.*;
+import java.sql.*;
 
 public class LoginPanel extends javax.swing.JPanel {
     final static long serialVersionUID = 0l;
@@ -46,6 +48,7 @@ public class LoginPanel extends javax.swing.JPanel {
         loginButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
         adminCheckbox = new javax.swing.JCheckBox();
+        errorLabel = new javax.swing.JLabel();
 
         headerLabel.setFont(new java.awt.Font("DejaVu Sans", 1, 36)); // NOI18N
         headerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -100,18 +103,23 @@ public class LoginPanel extends javax.swing.JPanel {
         adminCheckbox.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         adminCheckbox.setText("Login as Administrator");
 
+        errorLabel.setFont(new java.awt.Font("DejaVu Sans", 0, 24)); // NOI18N
+        errorLabel.setForeground(new java.awt.Color(255, 0, 0));
+        errorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(passwordField)
-                    .addComponent(usernameField, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(activityLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(headerLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(errorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(passwordField, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(usernameField)
+                    .addComponent(activityLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(headerLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(adminCheckbox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -127,19 +135,22 @@ public class LoginPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(activityLabel)
                 .addGap(18, 18, 18)
+                .addComponent(errorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cancelButton, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
-                    .addComponent(loginButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(adminCheckbox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(cancelButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(loginButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(adminCheckbox, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+        errorLabel.setText("");
         usernameField.setText("Username");
         usernameField.setForeground(Color.GRAY);
         passwordField.setText("Password");
@@ -178,13 +189,29 @@ public class LoginPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_passwordFieldFocusGained
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
+        Connection con;
+        PreparedStatement ps;
+        ResultSet rs;
         
+        if (usernameField.getForeground() == Color.GRAY || "".equals(usernameField.getText())
+                || passwordField.getForeground() == Color.GRAY || "".equals(usernameField.getText())) {
+            errorLabel.setText("Incorrect Credentials");
+            return;
+        }
+        
+        try{
+            con = DriverManager.getConnection("jdbc:mysql://localhost/hotelmgmt?");
+        }
+        catch(SQLException e){
+            errorLabel.setText("Database Connection Failed");
+        }
     }//GEN-LAST:event_loginButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel activityLabel;
     private javax.swing.JCheckBox adminCheckbox;
     private javax.swing.JButton cancelButton;
+    private javax.swing.JLabel errorLabel;
     private javax.swing.JLabel headerLabel;
     private javax.swing.JButton loginButton;
     private javax.swing.JPasswordField passwordField;

@@ -20,7 +20,6 @@
 package hotelmgmt;
 
 import java.awt.*;
-import javax.swing.*;
 import java.sql.*;
 
 public class LoginPanel extends javax.swing.JPanel {

@@ -210,6 +210,11 @@ public class AdminPanel extends javax.swing.JPanel {
 
         deleteButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         deleteButton.setText("Delete");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -351,14 +356,13 @@ public class AdminPanel extends javax.swing.JPanel {
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
         boolean admin;
         String username, password;
-        ResultSet rs;
 
         admin = adminCheckbox.isSelected();
         username = usernameField.getText();
         password = passwordField.getText();
 
         if (usernameField.getForeground() == Color.GRAY || "".equals(username)
-                || passwordField.getForeground() == Color.GRAY || "".equals(username)) {
+                || passwordField.getForeground() == Color.GRAY || "".equals(password)) {
             errorLabel.setText("Provide Username and Password");
             errorLabel.setForeground(Color.RED);
             return;
@@ -374,24 +378,54 @@ public class AdminPanel extends javax.swing.JPanel {
             ps.setString(4, password);
             ps.setInt(5, admin ? 1 : 0);
             ps.execute();
-
-            errorLabel.setText("User Added");
-            errorLabel.setForeground(Color.BLUE);
-            usernameField.setText("Username");
-            usernameField.setForeground(Color.GRAY);
-            passwordField.setText("Password");
-            passwordField.setForeground(Color.GRAY);
-            adminCheckbox.setSelected(false);
         }
         catch(SQLException e) {
             errorLabel.setText("Database Connection Failed");
             errorLabel.setForeground(Color.ORANGE);
         }
         finally {
+            errorLabel.setText("User Added");
+            errorLabel.setForeground(Color.BLUE);
+            usernameField.setText("Username");
+            usernameField.setForeground(Color.GRAY);
+            adminCheckbox.setSelected(false);
             passwordField.setText("Password");
             passwordField.setForeground(Color.GRAY);
         }
     }//GEN-LAST:event_createButtonActionPerformed
+
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        String username;
+        
+        username = usernameField.getText();
+
+        if (usernameField.getForeground() == Color.GRAY || "".equals(username)) {
+            errorLabel.setText("Provide Username");
+            errorLabel.setForeground(Color.RED);
+            return;
+        }
+
+        try (
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/hotelmgmt", "hotelmgmt", "hotelmgmt");
+            PreparedStatement ps = con.prepareStatement("delete from users where username=?")
+        ) {
+            ps.setString(1, username);
+            ps.execute();
+        }
+        catch(SQLException e) {
+            errorLabel.setText("Database Connection Failed");
+            errorLabel.setForeground(Color.ORANGE);
+        }
+        finally {
+            errorLabel.setText("User Deleted");
+            errorLabel.setForeground(Color.BLUE);
+            usernameField.setText("Username");
+            usernameField.setForeground(Color.GRAY);
+            adminCheckbox.setSelected(false);
+            passwordField.setText("Password");
+            passwordField.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_deleteButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel activityLabel;

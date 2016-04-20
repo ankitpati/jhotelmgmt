@@ -200,7 +200,7 @@ public class LoginPanel extends javax.swing.JPanel {
         ResultSet rs;
 
         if (usernameField.getForeground() == Color.GRAY || "".equals(usernameField.getText())
-                || passwordField.getForeground() == Color.GRAY || "".equals(usernameField.getText())) {
+                || passwordField.getForeground() == Color.GRAY || "".equals(passwordField.getText())) {
             errorLabel.setText("Provide Username and Password");
             errorLabel.setForeground(Color.RED);
             return;

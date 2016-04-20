@@ -51,7 +51,7 @@ public class AdminPanel extends javax.swing.JPanel {
         headerLabel = new javax.swing.JLabel();
         activityLabel = new javax.swing.JLabel();
         errorLabel = new javax.swing.JLabel();
-        creationTabbedPane = new javax.swing.JTabbedPane();
+        managementTabbedPane = new javax.swing.JTabbedPane();
         hotelPane = new javax.swing.JPanel();
         hotelNameField = new javax.swing.JTextField();
         roomsField = new javax.swing.JTextField();
@@ -126,10 +126,10 @@ public class AdminPanel extends javax.swing.JPanel {
                 .addComponent(hotelNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(roomsField, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addGap(0, 28, Short.MAX_VALUE))
         );
 
-        creationTabbedPane.addTab("Hotels", hotelPane);
+        managementTabbedPane.addTab("Hotels", hotelPane);
 
         usernameField.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         usernameField.setForeground(java.awt.Color.gray);
@@ -178,11 +178,12 @@ public class AdminPanel extends javax.swing.JPanel {
                 .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(adminCheckbox, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(adminCheckbox, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        creationTabbedPane.addTab("Users", userPane);
+        managementTabbedPane.addTab("Users", userPane);
 
         cancelButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         cancelButton.setText("Cancel");
@@ -228,7 +229,7 @@ public class AdminPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(errorLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(creationTabbedPane, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(managementTabbedPane, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(18, 18, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -245,22 +246,22 @@ public class AdminPanel extends javax.swing.JPanel {
                 .addComponent(headerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(activityLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(errorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(errorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                         .addComponent(createButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(creationTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 9, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(managementTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -354,6 +355,16 @@ public class AdminPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
+        if (managementTabbedPane.getSelectedComponent() == userPane) createUser();
+        else createHotel();
+    }//GEN-LAST:event_createButtonActionPerformed
+
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        if (managementTabbedPane.getSelectedComponent() == userPane) deleteUser();
+        else deleteHotel();
+    }//GEN-LAST:event_deleteButtonActionPerformed
+
+    private void createUser() {
         boolean admin;
         String username, password;
 
@@ -378,23 +389,23 @@ public class AdminPanel extends javax.swing.JPanel {
             ps.setString(4, password);
             ps.setInt(5, admin ? 1 : 0);
             ps.execute();
+            errorLabel.setText("User Added");
+            errorLabel.setForeground(Color.BLUE);
         }
         catch(SQLException e) {
             errorLabel.setText("Database Connection Failed");
             errorLabel.setForeground(Color.ORANGE);
         }
         finally {
-            errorLabel.setText("User Added");
-            errorLabel.setForeground(Color.BLUE);
             usernameField.setText("Username");
             usernameField.setForeground(Color.GRAY);
             adminCheckbox.setSelected(false);
             passwordField.setText("Password");
             passwordField.setForeground(Color.GRAY);
         }
-    }//GEN-LAST:event_createButtonActionPerformed
-
-    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+    }
+    
+    private void deleteUser() {
         String username;
         
         username = usernameField.getText();
@@ -411,34 +422,106 @@ public class AdminPanel extends javax.swing.JPanel {
         ) {
             ps.setString(1, username);
             ps.execute();
+            errorLabel.setText("User Deleted");
+            errorLabel.setForeground(Color.BLUE);
         }
         catch(SQLException e) {
             errorLabel.setText("Database Connection Failed");
             errorLabel.setForeground(Color.ORANGE);
         }
         finally {
-            errorLabel.setText("User Deleted");
-            errorLabel.setForeground(Color.BLUE);
             usernameField.setText("Username");
             usernameField.setForeground(Color.GRAY);
             adminCheckbox.setSelected(false);
             passwordField.setText("Password");
             passwordField.setForeground(Color.GRAY);
         }
-    }//GEN-LAST:event_deleteButtonActionPerformed
+    }
+    
+    private void createHotel() {
+        int rooms;
+        String hotel;
 
+        hotel = hotelNameField.getText();
+
+        if (hotelNameField.getForeground() == Color.GRAY || "".equals(hotel)
+                || roomsField.getForeground() == Color.GRAY || "".equals(roomsField.getText())) {
+            errorLabel.setText("Provide Hotel Name and Rooms");
+            errorLabel.setForeground(Color.RED);
+            return;
+        }
+
+        rooms = Integer.parseInt(roomsField.getText());
+
+        try (
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/hotelmgmt", "hotelmgmt", "hotelmgmt");
+            PreparedStatement ps = con.prepareStatement("insert into hotels values(?, ?) on duplicate key update rooms=?")
+        ) {
+            ps.setString(1, hotel);
+            ps.setInt(2, rooms);
+            ps.setInt(3, rooms);
+            ps.execute();
+            errorLabel.setText("Hotel Added");
+            errorLabel.setForeground(Color.BLUE);
+        }
+        catch(SQLException e) {
+            errorLabel.setText("Database Connection Failed");
+            errorLabel.setForeground(Color.ORANGE);
+        }
+        finally {
+            usernameField.setText("Username");
+            usernameField.setForeground(Color.GRAY);
+            adminCheckbox.setSelected(false);
+            passwordField.setText("Password");
+            passwordField.setForeground(Color.GRAY);
+        }
+    }
+    
+    private void deleteHotel() {
+        String hotel;
+
+        hotel = hotelNameField.getText();
+
+        if (hotelNameField.getForeground() == Color.GRAY || "".equals(hotel)) {
+            errorLabel.setText("Provide Hotel Name");
+            errorLabel.setForeground(Color.RED);
+            return;
+        }
+
+        try (
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/hotelmgmt", "hotelmgmt", "hotelmgmt");
+            PreparedStatement ps = con.prepareStatement("delete from hotels where hotel=?")
+        ) {
+            ps.setString(1, hotel);
+            ps.execute();
+            errorLabel.setText("Hotel Deleted");
+            errorLabel.setForeground(Color.BLUE);
+        }
+        catch(SQLException e) {
+            errorLabel.setText("Database Connection Failed");
+            errorLabel.setForeground(Color.ORANGE);
+        }
+        finally {
+            usernameField.setText("Username");
+            usernameField.setForeground(Color.GRAY);
+            adminCheckbox.setSelected(false);
+            passwordField.setText("Password");
+            passwordField.setForeground(Color.GRAY);
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel activityLabel;
     private javax.swing.JCheckBox adminCheckbox;
     private javax.swing.JButton cancelButton;
     private javax.swing.JButton createButton;
-    private javax.swing.JTabbedPane creationTabbedPane;
     private javax.swing.JButton deleteButton;
     private javax.swing.JLabel errorLabel;
     private javax.swing.JLabel headerLabel;
     private javax.swing.JTextField hotelNameField;
     private javax.swing.JPanel hotelPane;
     private javax.swing.JButton logoutButton;
+    private javax.swing.JTabbedPane managementTabbedPane;
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JTextField roomsField;
     private javax.swing.JPanel userPane;

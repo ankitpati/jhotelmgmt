@@ -58,6 +58,7 @@ public class AdminPanel extends javax.swing.JPanel {
         userPane = new javax.swing.JPanel();
         usernameField = new javax.swing.JTextField();
         passwordField = new javax.swing.JPasswordField();
+        adminCheckbox = new javax.swing.JCheckBox();
         cancelButton = new javax.swing.JButton();
         logoutButton = new javax.swing.JButton();
         createButton = new javax.swing.JButton();
@@ -156,15 +157,18 @@ public class AdminPanel extends javax.swing.JPanel {
             }
         });
 
+        adminCheckbox.setText("Administrator");
+
         javax.swing.GroupLayout userPaneLayout = new javax.swing.GroupLayout(userPane);
         userPane.setLayout(userPaneLayout);
         userPaneLayout.setHorizontalGroup(
             userPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(userPaneLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userPaneLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(userPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(usernameField, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
-                    .addComponent(passwordField))
+                .addGroup(userPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(adminCheckbox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(usernameField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
+                    .addComponent(passwordField, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
         );
         userPaneLayout.setVerticalGroup(
@@ -172,9 +176,10 @@ public class AdminPanel extends javax.swing.JPanel {
             .addGroup(userPaneLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(adminCheckbox, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         creationTabbedPane.addTab("Users", userPane);
@@ -344,11 +349,53 @@ public class AdminPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
-        
+        boolean admin;
+        String username, password;
+        ResultSet rs;
+
+        admin = adminCheckbox.isSelected();
+        username = usernameField.getText();
+        password = passwordField.getText();
+
+        if (usernameField.getForeground() == Color.GRAY || "".equals(username)
+                || passwordField.getForeground() == Color.GRAY || "".equals(username)) {
+            errorLabel.setText("Provide Username and Password");
+            errorLabel.setForeground(Color.RED);
+            return;
+        }
+
+        try (
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/hotelmgmt", "hotelmgmt", "hotelmgmt");
+            PreparedStatement ps = con.prepareStatement("insert into users values(?, ?, ?) on duplicate key update password=?, admin=?")
+        ) {
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ps.setInt(3, admin ? 1 : 0);
+            ps.setString(4, password);
+            ps.setInt(5, admin ? 1 : 0);
+            ps.execute();
+
+            errorLabel.setText("User Added");
+            errorLabel.setForeground(Color.BLUE);
+            usernameField.setText("Username");
+            usernameField.setForeground(Color.GRAY);
+            passwordField.setText("Password");
+            passwordField.setForeground(Color.GRAY);
+            adminCheckbox.setSelected(false);
+        }
+        catch(SQLException e) {
+            errorLabel.setText("Database Connection Failed");
+            errorLabel.setForeground(Color.ORANGE);
+        }
+        finally {
+            passwordField.setText("Password");
+            passwordField.setForeground(Color.GRAY);
+        }
     }//GEN-LAST:event_createButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel activityLabel;
+    private javax.swing.JCheckBox adminCheckbox;
     private javax.swing.JButton cancelButton;
     private javax.swing.JButton createButton;
     private javax.swing.JTabbedPane creationTabbedPane;

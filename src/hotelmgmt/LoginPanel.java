@@ -198,7 +198,7 @@ public class LoginPanel extends javax.swing.JPanel {
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         String username;
         ResultSet rs;
-        
+
         if (usernameField.getForeground() == Color.GRAY || "".equals(usernameField.getText())
                 || passwordField.getForeground() == Color.GRAY || "".equals(usernameField.getText())) {
             errorLabel.setText("Provide Username and Password");
@@ -209,12 +209,11 @@ public class LoginPanel extends javax.swing.JPanel {
         try (
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost/hotelmgmt", "hotelmgmt", "hotelmgmt");
             PreparedStatement ps = con.prepareStatement("select admin from users where username=? and password=?")
-
         ) {
             ps.setString(1, username = usernameField.getText());
             ps.setString(2, passwordField.getText());
             rs = ps.executeQuery();
-            
+
             if (rs.next()) {
                 if (adminCheckbox.isSelected()) {
                     if (rs.getByte(1) == (byte)1) {

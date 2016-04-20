@@ -23,12 +23,13 @@ import javax.swing.*;
 
 public class HMSFrame extends javax.swing.JFrame {
     final static long serialVersionUID = 0l;
-    JPanel currentPanel;
+    JPanel currentPanel = new LoginPanel();
     static HMSFrame self;
 
     public HMSFrame() {
         initComponents();
-        renderLogin();
+        add(currentPanel);
+        pack();
     }
 
     /**
@@ -48,20 +49,20 @@ public class HMSFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public final void renderLogin() {
-        if(currentPanel != null) remove(currentPanel);
-        add(currentPanel = new LoginPanel());
+    public final void renderLogin(String username) {
+        remove(currentPanel);
+        add(currentPanel = new LoginPanel(username));
         pack();
     }
     
     public final void renderAdmin(String username) {
-        if(currentPanel != null) remove(currentPanel);
+        remove(currentPanel);
         add(currentPanel = new AdminPanel(username));
         pack();
     }
     
     public final void renderUser(String username) {
-        if(currentPanel != null) remove(currentPanel);
+        remove(currentPanel);
         add(currentPanel = new UserPanel(username));
         pack();
     }

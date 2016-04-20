@@ -27,7 +27,7 @@ public class LoginPanel extends javax.swing.JPanel {
 
     public LoginPanel() {
         initComponents();
-        
+
         usernameField.setTransferHandler(null);
     }
 
@@ -188,21 +188,44 @@ public class LoginPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_passwordFieldFocusGained
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        Connection con;
-        PreparedStatement ps;
+        String username;
         ResultSet rs;
         
         if (usernameField.getForeground() == Color.GRAY || "".equals(usernameField.getText())
                 || passwordField.getForeground() == Color.GRAY || "".equals(usernameField.getText())) {
-            errorLabel.setText("Incorrect Credentials");
+            errorLabel.setText("Provide Username and Password");
             return;
         }
-        
-        try{
-            con = DriverManager.getConnection("jdbc:mysql://localhost/hotelmgmt?");
+
+        try (
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/hotelmgmt", "hotelmgmt", "hotelmgmt");
+            PreparedStatement ps = con.prepareStatement("select admin from users where username=? and password=?")
+
+        ) {
+            ps.setString(1, username = usernameField.getText());
+            ps.setString(2, passwordField.getText());
+            rs = ps.executeQuery();
+            
+            if (rs.next()) {
+                if (adminCheckbox.isSelected()) {
+                    if (rs.getByte(1) == (byte)1) {
+                        
+                        errorLabel.setText("Logged Out");
+                    }
+                    else errorLabel.setText("Insufficient Privileges");
+                }
+                else {
+                    errorLabel.setText("Logged Out");
+                }
+            }
+            else errorLabel.setText("Incorrect Credentials");
         }
-        catch(SQLException e){
+        catch(SQLException e) {
             errorLabel.setText("Database Connection Failed");
+        }
+        finally {
+            passwordField.setForeground(Color.GRAY);
+            passwordField.setText("Password");
         }
     }//GEN-LAST:event_loginButtonActionPerformed
 

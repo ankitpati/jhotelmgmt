@@ -41,13 +41,86 @@ public class HMSFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        HMSFrameMenuBar = new javax.swing.JMenuBar();
+        appearanceMenu = new javax.swing.JMenu();
+        nimbusMenuItem = new javax.swing.JMenuItem();
+        metalMenuItem = new javax.swing.JMenuItem();
+        motifMenuItem = new javax.swing.JMenuItem();
+        gtkMenuItem = new javax.swing.JMenuItem();
+        windowsMenuItem = new javax.swing.JMenuItem();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Hotel Management System");
         setAlwaysOnTop(true);
         setResizable(false);
         getContentPane().setLayout(new java.awt.FlowLayout());
 
+        appearanceMenu.setText("Appearance");
+
+        nimbusMenuItem.setText("Nimbus");
+        nimbusMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                appearanceActionPerformedHandler(evt);
+            }
+        });
+        appearanceMenu.add(nimbusMenuItem);
+
+        metalMenuItem.setText("Metal");
+        metalMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                appearanceActionPerformedHandler(evt);
+            }
+        });
+        appearanceMenu.add(metalMenuItem);
+
+        motifMenuItem.setText("CDE/Motif");
+        motifMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                appearanceActionPerformedHandler(evt);
+            }
+        });
+        appearanceMenu.add(motifMenuItem);
+
+        gtkMenuItem.setText("GTK+");
+        gtkMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                appearanceActionPerformedHandler(evt);
+            }
+        });
+        appearanceMenu.add(gtkMenuItem);
+
+        windowsMenuItem.setText("Windows");
+        windowsMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                appearanceActionPerformedHandler(evt);
+            }
+        });
+        appearanceMenu.add(windowsMenuItem);
+
+        HMSFrameMenuBar.add(appearanceMenu);
+
+        setJMenuBar(HMSFrameMenuBar);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void appearanceActionPerformedHandler(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appearanceActionPerformedHandler
+        SwingUtilities.invokeLater(() -> {
+            try {
+                for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if (evt.getActionCommand().equals(info.getName())) {
+                        javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                        break;
+                    }
+                }
+                SwingUtilities.updateComponentTreeUI(this);
+                pack();
+            }
+            catch (Exception ex) {
+                System.err.println("Cannot set "+evt.getActionCommand()+" theme.");
+            }
+        });
+    }//GEN-LAST:event_appearanceActionPerformedHandler
 
     public final void renderLogin(String username) {
         remove(currentPanel);
@@ -97,6 +170,13 @@ public class HMSFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuBar HMSFrameMenuBar;
+    private javax.swing.JMenu appearanceMenu;
+    private javax.swing.JMenuItem gtkMenuItem;
+    private javax.swing.JMenuItem metalMenuItem;
+    private javax.swing.JMenuItem motifMenuItem;
+    private javax.swing.JMenuItem nimbusMenuItem;
+    private javax.swing.JMenuItem windowsMenuItem;
     // End of variables declaration//GEN-END:variables
 }
 /* end of HMSFrame.java */

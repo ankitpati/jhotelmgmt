@@ -150,7 +150,7 @@
                   <Color blue="80" green="80" id="gray" palette="1" red="80" type="palette"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Hotel Name"/>
-                <Property name="toolTipText" type="java.lang.String" value="Username"/>
+                <Property name="toolTipText" type="java.lang.String" value="Hotel Name"/>
               </Properties>
               <Events>
                 <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="hotelNameFieldFocusGained"/>
@@ -167,7 +167,7 @@
                   <Color blue="80" green="80" id="gray" palette="1" red="80" type="palette"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Number of Rooms"/>
-                <Property name="toolTipText" type="java.lang.String" value="Username"/>
+                <Property name="toolTipText" type="java.lang.String" value="Number of Rooms"/>
               </Properties>
               <Events>
                 <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="roomsFieldFocusGained"/>

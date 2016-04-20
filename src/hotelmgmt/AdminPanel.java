@@ -73,7 +73,7 @@ public class AdminPanel extends javax.swing.JPanel {
         hotelNameField.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         hotelNameField.setForeground(java.awt.Color.gray);
         hotelNameField.setText("Hotel Name");
-        hotelNameField.setToolTipText("Username");
+        hotelNameField.setToolTipText("Hotel Name");
         hotelNameField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 hotelNameFieldFocusGained(evt);
@@ -87,7 +87,7 @@ public class AdminPanel extends javax.swing.JPanel {
         roomsField.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         roomsField.setForeground(java.awt.Color.gray);
         roomsField.setText("Number of Rooms");
-        roomsField.setToolTipText("Username");
+        roomsField.setToolTipText("Number of Rooms");
         roomsField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 roomsFieldFocusGained(evt);

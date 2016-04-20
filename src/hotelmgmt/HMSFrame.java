@@ -23,10 +23,7 @@ import javax.swing.*;
 
 public class HMSFrame extends javax.swing.JFrame {
     final static long serialVersionUID = 0l;
-    JPanel currentPanel = new LoginPanel();
-    JPanel loginPanel = currentPanel;
-    JPanel adminPanel;
-    JPanel userPanel;
+    JPanel currentPanel;
     static HMSFrame self;
 
     public HMSFrame() {
@@ -52,8 +49,8 @@ public class HMSFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public final void renderLogin() {
-        remove(currentPanel);
-        add(loginPanel);
+        if(currentPanel != null) remove(currentPanel);
+        add(currentPanel = new LoginPanel());
         pack();
     }
     

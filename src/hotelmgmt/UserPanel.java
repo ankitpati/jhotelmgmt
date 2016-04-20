@@ -20,6 +20,7 @@
 package hotelmgmt;
 
 public class UserPanel extends javax.swing.JPanel {
+    final static long serialVersionUID = 0l;
     String username;
     
     public UserPanel(String username) {

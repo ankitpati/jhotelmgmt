@@ -20,7 +20,7 @@
 package hotelmgmt;
 
 import java.awt.*;
-import java.awt.event.*;
+import java.sql.*;
 
 /**
  *
@@ -60,8 +60,8 @@ public class AdminPanel extends javax.swing.JPanel {
         passwordField = new javax.swing.JPasswordField();
         cancelButton = new javax.swing.JButton();
         logoutButton = new javax.swing.JButton();
-        deleteButton = new javax.swing.JButton();
         createButton = new javax.swing.JButton();
+        deleteButton = new javax.swing.JButton();
 
         headerLabel.setFont(new java.awt.Font("DejaVu Sans", 1, 36)); // NOI18N
         headerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -88,6 +88,7 @@ public class AdminPanel extends javax.swing.JPanel {
             }
         });
 
+        roomsField.setEditable(false);
         roomsField.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         roomsField.setForeground(java.awt.Color.gray);
         roomsField.setText("Number of Rooms");
@@ -98,6 +99,11 @@ public class AdminPanel extends javax.swing.JPanel {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 roomsFieldFocusLost(evt);
+            }
+        });
+        roomsField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                roomsFieldKeyTyped(evt);
             }
         });
 
@@ -175,6 +181,11 @@ public class AdminPanel extends javax.swing.JPanel {
 
         cancelButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         cancelButton.setText("Cancel");
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelButtonActionPerformed(evt);
+            }
+        });
 
         logoutButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         logoutButton.setText("Logout");
@@ -184,11 +195,16 @@ public class AdminPanel extends javax.swing.JPanel {
             }
         });
 
-        deleteButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
-        deleteButton.setText("Delete");
-
         createButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         createButton.setText("Create");
+        createButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createButtonActionPerformed(evt);
+            }
+        });
+
+        deleteButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        deleteButton.setText("Delete");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -206,9 +222,9 @@ public class AdminPanel extends javax.swing.JPanel {
                         .addGap(18, 18, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(createButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(createButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(8, 8, 8)))
                 .addContainerGap())
         );
@@ -226,9 +242,9 @@ public class AdminPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(createButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -244,25 +260,39 @@ public class AdminPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_logoutButtonActionPerformed
 
     private void passwordFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFieldFocusLost
-        // TODO add your handling code here:
+        if ("".equals(passwordField.getText()) || passwordField.getForeground() == Color.GRAY) {
+            passwordField.setForeground(Color.GRAY);
+            passwordField.setText("Password");
+        }
     }//GEN-LAST:event_passwordFieldFocusLost
 
     private void passwordFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFieldFocusGained
-        // TODO add your handling code here:
+        if (passwordField.getForeground() == Color.GRAY) {
+            passwordField.setText("");
+            passwordField.setForeground(Color.BLACK);
+            passwordField.setCaretPosition(0);
+        }
     }//GEN-LAST:event_passwordFieldFocusGained
 
     private void usernameFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameFieldFocusLost
-        // TODO add your handling code here:
+        if ("".equals(usernameField.getText()) || usernameField.getForeground() == Color.GRAY) {
+            usernameField.setForeground(Color.GRAY);
+            usernameField.setText("Username");
+        }
     }//GEN-LAST:event_usernameFieldFocusLost
 
     private void usernameFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameFieldFocusGained
-        // TODO add your handling code here:
+        if (usernameField.getForeground() == Color.GRAY) {
+            usernameField.setText("");
+            usernameField.setForeground(Color.BLACK);
+            usernameField.setCaretPosition(0);
+        }
     }//GEN-LAST:event_usernameFieldFocusGained
 
     private void hotelNameFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_hotelNameFieldFocusLost
         if ("".equals(hotelNameField.getText()) || hotelNameField.getForeground() == Color.GRAY) {
             hotelNameField.setForeground(Color.GRAY);
-            hotelNameField.setText("Username");
+            hotelNameField.setText("Hotel Name");
         }
     }//GEN-LAST:event_hotelNameFieldFocusLost
 
@@ -275,13 +305,47 @@ public class AdminPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_hotelNameFieldFocusGained
 
     private void roomsFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_roomsFieldFocusGained
-        // TODO add your handling code here:
+        if (roomsField.getForeground() == Color.GRAY) {
+            roomsField.setText("");
+            roomsField.setForeground(Color.BLACK);
+            roomsField.setCaretPosition(0);
+        }
     }//GEN-LAST:event_roomsFieldFocusGained
 
     private void roomsFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_roomsFieldFocusLost
-        // TODO add your handling code here:
+        if ("".equals(roomsField.getText()) || roomsField.getForeground() == Color.GRAY) {
+            roomsField.setForeground(Color.GRAY);
+            roomsField.setText("Number of Rooms");
+        }
     }//GEN-LAST:event_roomsFieldFocusLost
 
+    private void roomsFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_roomsFieldKeyTyped
+        char c;
+        String orig;      
+        
+        c = evt.getKeyChar();
+        orig = roomsField.getText();
+        
+        if (Character.isDigit(c)) roomsField.setText(orig + c);
+        else if (c == '\b' && orig.length() != 0) roomsField.setText(orig.substring(0, orig.length() - 1));
+    }//GEN-LAST:event_roomsFieldKeyTyped
+
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+        errorLabel.setText("");
+        errorLabel.setForeground(Color.RED);
+        hotelNameField.setText("Hotel Name");
+        hotelNameField.setForeground(Color.GRAY);
+        roomsField.setText("Number of Rooms");
+        roomsField.setForeground(Color.GRAY);
+        usernameField.setText("Username");
+        usernameField.setForeground(Color.GRAY);
+        passwordField.setText("Password");
+        passwordField.setForeground(Color.GRAY);
+    }//GEN-LAST:event_cancelButtonActionPerformed
+
+    private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
+        
+    }//GEN-LAST:event_createButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel activityLabel;

@@ -42,7 +42,7 @@ public class HMSFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         HMSFrameMenuBar = new javax.swing.JMenuBar();
-        appearanceMenu = new javax.swing.JMenu();
+        themeMenu = new javax.swing.JMenu();
         nimbusMenuItem = new javax.swing.JMenuItem();
         metalMenuItem = new javax.swing.JMenuItem();
         motifMenuItem = new javax.swing.JMenuItem();
@@ -55,61 +55,61 @@ public class HMSFrame extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new java.awt.FlowLayout());
 
-        appearanceMenu.setText("Appearance");
+        themeMenu.setText("Theme");
 
         nimbusMenuItem.setText("Nimbus");
         nimbusMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                appearanceActionPerformedHandler(evt);
+                themeActionPerformedHandler(evt);
             }
         });
-        appearanceMenu.add(nimbusMenuItem);
+        themeMenu.add(nimbusMenuItem);
 
         metalMenuItem.setText("Metal");
         metalMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                appearanceActionPerformedHandler(evt);
+                themeActionPerformedHandler(evt);
             }
         });
-        appearanceMenu.add(metalMenuItem);
+        themeMenu.add(metalMenuItem);
 
         motifMenuItem.setText("CDE/Motif");
         motifMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                appearanceActionPerformedHandler(evt);
+                themeActionPerformedHandler(evt);
             }
         });
-        appearanceMenu.add(motifMenuItem);
+        themeMenu.add(motifMenuItem);
 
         gtkMenuItem.setText("GTK+");
         gtkMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                appearanceActionPerformedHandler(evt);
+                themeActionPerformedHandler(evt);
             }
         });
-        appearanceMenu.add(gtkMenuItem);
+        themeMenu.add(gtkMenuItem);
 
         windowsMenuItem.setText("Windows");
         windowsMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                appearanceActionPerformedHandler(evt);
+                themeActionPerformedHandler(evt);
             }
         });
-        appearanceMenu.add(windowsMenuItem);
+        themeMenu.add(windowsMenuItem);
 
-        HMSFrameMenuBar.add(appearanceMenu);
+        HMSFrameMenuBar.add(themeMenu);
 
         setJMenuBar(HMSFrameMenuBar);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void appearanceActionPerformedHandler(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appearanceActionPerformedHandler
+    private void themeActionPerformedHandler(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_themeActionPerformedHandler
         SwingUtilities.invokeLater(() -> {
             try {
-                for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                     if (evt.getActionCommand().equals(info.getName())) {
-                        javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                        UIManager.setLookAndFeel(info.getClassName());
                         break;
                     }
                 }
@@ -120,7 +120,7 @@ public class HMSFrame extends javax.swing.JFrame {
                 System.err.println("Cannot set "+evt.getActionCommand()+" theme.");
             }
         });
-    }//GEN-LAST:event_appearanceActionPerformedHandler
+    }//GEN-LAST:event_themeActionPerformedHandler
 
     public final void renderLogin(String username) {
         remove(currentPanel);
@@ -171,11 +171,11 @@ public class HMSFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar HMSFrameMenuBar;
-    private javax.swing.JMenu appearanceMenu;
     private javax.swing.JMenuItem gtkMenuItem;
     private javax.swing.JMenuItem metalMenuItem;
     private javax.swing.JMenuItem motifMenuItem;
     private javax.swing.JMenuItem nimbusMenuItem;
+    private javax.swing.JMenu themeMenu;
     private javax.swing.JMenuItem windowsMenuItem;
     // End of variables declaration//GEN-END:variables
 }

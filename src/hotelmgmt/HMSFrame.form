@@ -4,9 +4,9 @@
   <NonVisualComponents>
     <Menu class="javax.swing.JMenuBar" name="HMSFrameMenuBar">
       <SubComponents>
-        <Menu class="javax.swing.JMenu" name="appearanceMenu">
+        <Menu class="javax.swing.JMenu" name="themeMenu">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Appearance"/>
+            <Property name="text" type="java.lang.String" value="Theme"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="nimbusMenuItem">
@@ -14,7 +14,7 @@
                 <Property name="text" type="java.lang.String" value="Nimbus"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="appearanceActionPerformedHandler"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="themeActionPerformedHandler"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="metalMenuItem">
@@ -22,7 +22,7 @@
                 <Property name="text" type="java.lang.String" value="Metal"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="appearanceActionPerformedHandler"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="themeActionPerformedHandler"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="motifMenuItem">
@@ -30,7 +30,7 @@
                 <Property name="text" type="java.lang.String" value="CDE/Motif"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="appearanceActionPerformedHandler"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="themeActionPerformedHandler"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="gtkMenuItem">
@@ -38,7 +38,7 @@
                 <Property name="text" type="java.lang.String" value="GTK+"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="appearanceActionPerformedHandler"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="themeActionPerformedHandler"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="windowsMenuItem">
@@ -46,7 +46,7 @@
                 <Property name="text" type="java.lang.String" value="Windows"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="appearanceActionPerformedHandler"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="themeActionPerformedHandler"/>
               </Events>
             </MenuItem>
           </SubComponents>

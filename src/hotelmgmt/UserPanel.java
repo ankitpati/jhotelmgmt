@@ -19,18 +19,13 @@
 
 package hotelmgmt;
 
-/**
- *
- * @author ankitpati
- */
 public class UserPanel extends javax.swing.JPanel {
-
-    /**
-     * Creates new form UserPanel
-     */
+    String username;
+    
     public UserPanel(String username) {
         initComponents();
 
+        this.username = username;
         activityLabel.setText(activityLabel.getText() + username);
     }
 

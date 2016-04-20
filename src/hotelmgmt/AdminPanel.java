@@ -22,16 +22,9 @@ package hotelmgmt;
 import java.awt.*;
 import java.sql.*;
 
-/**
- *
- * @author ankitpati
- */
 public class AdminPanel extends javax.swing.JPanel {
     String username;
     
-    /**
-     * Creates new form AdminPanel
-     */
     public AdminPanel(String username) {
         initComponents();
 

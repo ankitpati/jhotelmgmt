@@ -54,6 +54,18 @@ public class HMSFrame extends javax.swing.JFrame {
         pack();
     }
     
+    public final void renderAdmin(String username) {
+        if(currentPanel != null) remove(currentPanel);
+        add(currentPanel = new AdminPanel(username));
+        pack();
+    }
+    
+    public final void renderUser(String username) {
+        if(currentPanel != null) remove(currentPanel);
+        add(currentPanel = new UserPanel(username));
+        pack();
+    }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

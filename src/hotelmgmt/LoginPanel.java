@@ -150,6 +150,7 @@ public class LoginPanel extends javax.swing.JPanel {
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         errorLabel.setText("");
+        errorLabel.setForeground(Color.RED);
         usernameField.setText("Username");
         usernameField.setForeground(Color.GRAY);
         passwordField.setText("Password");
@@ -194,6 +195,7 @@ public class LoginPanel extends javax.swing.JPanel {
         if (usernameField.getForeground() == Color.GRAY || "".equals(usernameField.getText())
                 || passwordField.getForeground() == Color.GRAY || "".equals(usernameField.getText())) {
             errorLabel.setText("Provide Username and Password");
+            errorLabel.setForeground(Color.RED);
             return;
         }
 
@@ -209,23 +211,33 @@ public class LoginPanel extends javax.swing.JPanel {
             if (rs.next()) {
                 if (adminCheckbox.isSelected()) {
                     if (rs.getByte(1) == (byte)1) {
-                        
-                        errorLabel.setText("Logged Out");
+                        HMSFrame.self.renderAdmin(username);
+                        errorLabel.setText("Logged In");
+                        errorLabel.setForeground(Color.BLUE);
                     }
-                    else errorLabel.setText("Insufficient Privileges");
+                    else {
+                        errorLabel.setText("Insufficient Privileges");
+                        errorLabel.setForeground(Color.RED);
+                    }
                 }
                 else {
-                    errorLabel.setText("Logged Out");
+                    HMSFrame.self.renderUser(username);
+                    errorLabel.setText("Logged In");
+                    errorLabel.setForeground(Color.BLUE);
                 }
             }
-            else errorLabel.setText("Incorrect Credentials");
+            else {
+                errorLabel.setText("Incorrect Credentials");
+                errorLabel.setForeground(Color.RED);
+            }
         }
         catch(SQLException e) {
             errorLabel.setText("Database Connection Failed");
+            errorLabel.setForeground(Color.ORANGE);
         }
         finally {
-            passwordField.setForeground(Color.GRAY);
             passwordField.setText("Password");
+            passwordField.setForeground(Color.GRAY);
         }
     }//GEN-LAST:event_loginButtonActionPerformed
 

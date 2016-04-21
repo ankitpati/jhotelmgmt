@@ -303,7 +303,7 @@ public class UserPanel extends javax.swing.JPanel {
 
         hotel = hotelNameComboBox.getSelectedItem().toString();
         guest = guestNameTextField.getText();
-        
+
         roomtype = "Room";
         if (suiteRadioButton.isSelected()) roomtype = "Suite";
         else if (deluxeRadioButton.isSelected()) roomtype = "Deluxe";

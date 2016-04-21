@@ -25,7 +25,7 @@ import java.sql.*;
 public class AdminPanel extends javax.swing.JPanel {
     final static long serialVersionUID = 0l;
     String username;
-    
+
     public AdminPanel(String username) {
         initComponents();
 
@@ -326,11 +326,11 @@ public class AdminPanel extends javax.swing.JPanel {
 
     private void roomsFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_roomsFieldKeyTyped
         char c;
-        String orig;      
-        
+        String orig;
+
         c = evt.getKeyChar();
         orig = roomsField.getText();
-        
+
         if (Character.isDigit(c)) roomsField.setText(orig + c);
         else if (c == '\b' && orig.length() != 0) roomsField.setText(orig.substring(0, orig.length() - 1));
     }//GEN-LAST:event_roomsFieldKeyTyped
@@ -398,10 +398,10 @@ public class AdminPanel extends javax.swing.JPanel {
             passwordField.setForeground(Color.GRAY);
         }
     }
-    
+
     private void deleteUser() {
         String username;
-        
+
         username = usernameField.getText();
 
         if (usernameField.getForeground() == Color.GRAY || "".equals(username)) {
@@ -431,7 +431,7 @@ public class AdminPanel extends javax.swing.JPanel {
             passwordField.setForeground(Color.GRAY);
         }
     }
-    
+
     private void createHotel() {
         int rooms;
         String hotel;
@@ -470,7 +470,7 @@ public class AdminPanel extends javax.swing.JPanel {
             passwordField.setForeground(Color.GRAY);
         }
     }
-    
+
     private void deleteHotel() {
         String hotel;
 
@@ -503,7 +503,7 @@ public class AdminPanel extends javax.swing.JPanel {
             passwordField.setForeground(Color.GRAY);
         }
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel activityLabel;
     private javax.swing.JCheckBox adminCheckbox;

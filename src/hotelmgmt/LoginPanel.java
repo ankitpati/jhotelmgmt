@@ -31,7 +31,7 @@ public class LoginPanel extends javax.swing.JPanel {
         usernameField.setTransferHandler(null);
         passwordField.setTransferHandler(null);
     }
-    
+
     public LoginPanel(String username) {
         this();
         usernameField.setText(username);

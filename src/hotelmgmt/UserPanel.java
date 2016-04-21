@@ -37,6 +37,7 @@ public class UserPanel extends javax.swing.JPanel {
     }
 
     private void populateHotelNameComboBox() {
+        String hotel;
         ResultSet rs;
 
         try (
@@ -44,7 +45,11 @@ public class UserPanel extends javax.swing.JPanel {
             PreparedStatement ps = con.prepareStatement("select hotel from hotels")
         ) {
             rs = ps.executeQuery();
-            while (rs.next()) hotelNameComboBox.addItem(rs.getString(1));
+            while (rs.next()) {
+                hotel = rs.getString(1);
+                bookHotelNameComboBox.addItem(hotel);
+                serveHotelNameComboBox.addItem(hotel);
+            }
         }
         catch(SQLException e) {
             errorLabel.setText("Database Connection Failed");
@@ -67,15 +72,21 @@ public class UserPanel extends javax.swing.JPanel {
         errorLabel = new javax.swing.JLabel();
         cashierTabbedPane = new javax.swing.JTabbedPane();
         bookPane = new javax.swing.JPanel();
-        guestNameTextField = new javax.swing.JTextField();
+        bookGuestNameField = new javax.swing.JTextField();
         roomRadioButton = new javax.swing.JRadioButton();
         suiteRadioButton = new javax.swing.JRadioButton();
         deluxeRadioButton = new javax.swing.JRadioButton();
-        cancelButton = new javax.swing.JButton();
+        cancelBookButton = new javax.swing.JButton();
         unbookButton = new javax.swing.JButton();
         bookButton = new javax.swing.JButton();
-        hotelNameComboBox = new javax.swing.JComboBox();
+        bookHotelNameComboBox = new javax.swing.JComboBox();
         servePane = new javax.swing.JPanel();
+        serviceNameField = new javax.swing.JTextField();
+        costField = new javax.swing.JTextField();
+        cancelServeButton = new javax.swing.JButton();
+        recordServeButton = new javax.swing.JButton();
+        serveHotelNameComboBox = new javax.swing.JComboBox();
+        serveGuestNameField = new javax.swing.JTextField();
         billPane = new javax.swing.JPanel();
         logoutButton = new javax.swing.JButton();
 
@@ -91,16 +102,16 @@ public class UserPanel extends javax.swing.JPanel {
         errorLabel.setForeground(new java.awt.Color(255, 0, 0));
         errorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        guestNameTextField.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
-        guestNameTextField.setForeground(java.awt.Color.gray);
-        guestNameTextField.setText("Guest Name");
-        guestNameTextField.setToolTipText("Guest Name");
-        guestNameTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+        bookGuestNameField.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        bookGuestNameField.setForeground(java.awt.Color.gray);
+        bookGuestNameField.setText("Guest Name");
+        bookGuestNameField.setToolTipText("Guest Name");
+        bookGuestNameField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                guestNameTextFieldFocusGained(evt);
+                bookGuestNameFieldFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                guestNameTextFieldFocusLost(evt);
+                bookGuestNameFieldFocusLost(evt);
             }
         });
 
@@ -114,11 +125,11 @@ public class UserPanel extends javax.swing.JPanel {
         roomTypeButtonGroup.add(deluxeRadioButton);
         deluxeRadioButton.setText("Deluxe");
 
-        cancelButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
-        cancelButton.setText("Cancel");
-        cancelButton.addActionListener(new java.awt.event.ActionListener() {
+        cancelBookButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        cancelBookButton.setText("Cancel");
+        cancelBookButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelButtonActionPerformed(evt);
+                cancelBookButtonActionPerformed(evt);
             }
         });
 
@@ -138,13 +149,13 @@ public class UserPanel extends javax.swing.JPanel {
             }
         });
 
-        hotelNameComboBox.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
-        hotelNameComboBox.setForeground(java.awt.Color.gray);
-        hotelNameComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Hotel Name" }));
-        hotelNameComboBox.setToolTipText("Hotel Name");
-        hotelNameComboBox.addItemListener(new java.awt.event.ItemListener() {
+        bookHotelNameComboBox.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        bookHotelNameComboBox.setForeground(java.awt.Color.gray);
+        bookHotelNameComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Hotel Name" }));
+        bookHotelNameComboBox.setToolTipText("Hotel Name");
+        bookHotelNameComboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                hotelNameComboBoxItemStateChanged(evt);
+                bookHotelNameComboBoxItemStateChanged(evt);
             }
         });
 
@@ -160,9 +171,9 @@ public class UserPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(unbookButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(guestNameTextField, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(hotelNameComboBox, 0, 445, Short.MAX_VALUE))
+                        .addComponent(cancelBookButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(bookGuestNameField, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(bookHotelNameComboBox, 0, 445, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(bookPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(roomRadioButton)
@@ -177,12 +188,12 @@ public class UserPanel extends javax.swing.JPanel {
                 .addGroup(bookPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(bookPaneLayout.createSequentialGroup()
                         .addGap(2, 2, 2)
-                        .addComponent(hotelNameComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bookHotelNameComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(guestNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bookGuestNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(bookPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cancelBookButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(unbookButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(bookButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(bookPaneLayout.createSequentialGroup()
@@ -196,15 +207,113 @@ public class UserPanel extends javax.swing.JPanel {
 
         cashierTabbedPane.addTab("Book", bookPane);
 
+        serviceNameField.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        serviceNameField.setForeground(java.awt.Color.gray);
+        serviceNameField.setText("Service Description");
+        serviceNameField.setToolTipText("Service Description");
+        serviceNameField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                serviceNameFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                serviceNameFieldFocusLost(evt);
+            }
+        });
+
+        costField.setEditable(false);
+        costField.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        costField.setForeground(java.awt.Color.gray);
+        costField.setText("Cost in ₹");
+        costField.setToolTipText("Cost in ₹");
+        costField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                costFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                costFieldFocusLost(evt);
+            }
+        });
+        costField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                costFieldKeyTyped(evt);
+            }
+        });
+
+        cancelServeButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        cancelServeButton.setText("Cancel");
+        cancelServeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelServeButtonActionPerformed(evt);
+            }
+        });
+
+        recordServeButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        recordServeButton.setText("Record");
+        recordServeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                recordServeButtonActionPerformed(evt);
+            }
+        });
+
+        serveHotelNameComboBox.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        serveHotelNameComboBox.setForeground(java.awt.Color.gray);
+        serveHotelNameComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Hotel Name" }));
+        serveHotelNameComboBox.setToolTipText("Hotel Name");
+        serveHotelNameComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                serveHotelNameComboBoxItemStateChanged(evt);
+            }
+        });
+
+        serveGuestNameField.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        serveGuestNameField.setForeground(java.awt.Color.gray);
+        serveGuestNameField.setText("Guest Name");
+        serveGuestNameField.setToolTipText("Guest Name");
+        serveGuestNameField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                serveGuestNameFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                serveGuestNameFieldFocusLost(evt);
+            }
+        });
+
         javax.swing.GroupLayout servePaneLayout = new javax.swing.GroupLayout(servePane);
         servePane.setLayout(servePaneLayout);
         servePaneLayout.setHorizontalGroup(
             servePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 548, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, servePaneLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(servePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(serveHotelNameComboBox, 0, 280, Short.MAX_VALUE)
+                    .addComponent(serviceNameField))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(servePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(servePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(costField)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, servePaneLayout.createSequentialGroup()
+                            .addComponent(recordServeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                            .addComponent(cancelServeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(serveGuestNameField, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
         servePaneLayout.setVerticalGroup(
             servePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 159, Short.MAX_VALUE)
+            .addGroup(servePaneLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(servePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(serveHotelNameComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(serveGuestNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(servePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(costField, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(serviceNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(servePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cancelServeButton, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                    .addComponent(recordServeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         cashierTabbedPane.addTab("Serve", servePane);
@@ -262,45 +371,42 @@ public class UserPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void guestNameTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_guestNameTextFieldFocusGained
-        if (guestNameTextField.getForeground() == Color.GRAY) {
-            guestNameTextField.setText("");
-            guestNameTextField.setForeground(Color.BLACK);
-            guestNameTextField.setCaretPosition(0);
+    private void bookGuestNameFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_bookGuestNameFieldFocusGained
+        if (bookGuestNameField.getForeground() == Color.GRAY) {
+            bookGuestNameField.setText("");
+            bookGuestNameField.setForeground(Color.BLACK);
+            bookGuestNameField.setCaretPosition(0);
         }
-    }//GEN-LAST:event_guestNameTextFieldFocusGained
+    }//GEN-LAST:event_bookGuestNameFieldFocusGained
 
-    private void guestNameTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_guestNameTextFieldFocusLost
-        if ("".equals(guestNameTextField.getText()) || guestNameTextField.getForeground() == Color.GRAY) {
-            guestNameTextField.setForeground(Color.GRAY);
-            guestNameTextField.setText("Guest Name");
+    private void bookGuestNameFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_bookGuestNameFieldFocusLost
+        if ("".equals(bookGuestNameField.getText()) || bookGuestNameField.getForeground() == Color.GRAY) {
+            bookGuestNameField.setForeground(Color.GRAY);
+            bookGuestNameField.setText("Guest Name");
         }
-    }//GEN-LAST:event_guestNameTextFieldFocusLost
+    }//GEN-LAST:event_bookGuestNameFieldFocusLost
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
         HMSFrame.self.renderLogin(username);
     }//GEN-LAST:event_logoutButtonActionPerformed
 
-    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+    private void cancelBookButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBookButtonActionPerformed
         errorLabel.setText("");
         errorLabel.setForeground(Color.RED);
-
-        if (cashierTabbedPane.getSelectedComponent() == bookPane) {
-            hotelNameComboBox.setSelectedIndex(0);
-            hotelNameComboBox.setForeground(Color.GRAY);
-            guestNameTextField.setText("Guest Name");
-            guestNameTextField.setForeground(Color.GRAY);
-        }
-    }//GEN-LAST:event_cancelButtonActionPerformed
+        bookHotelNameComboBox.setSelectedIndex(0);
+        bookHotelNameComboBox.setForeground(Color.GRAY);
+        bookGuestNameField.setText("Guest Name");
+        bookGuestNameField.setForeground(Color.GRAY);
+    }//GEN-LAST:event_cancelBookButtonActionPerformed
 
     private void unbookButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unbookButtonActionPerformed
         String hotel, guest;
 
-        hotel = hotelNameComboBox.getSelectedItem().toString();
-        guest = guestNameTextField.getText();
+        hotel = bookHotelNameComboBox.getSelectedItem().toString();
+        guest = bookGuestNameField.getText();
 
-        if (hotelNameComboBox.getSelectedIndex() == 0 || hotelNameComboBox.getSelectedIndex() == -1
-                || guestNameTextField.getForeground() == Color.GRAY || "".equals(guest)) {
+        if (bookHotelNameComboBox.getSelectedIndex() == 0 || bookHotelNameComboBox.getSelectedIndex() == -1
+                || bookGuestNameField.getForeground() == Color.GRAY || "".equals(guest)) {
             errorLabel.setText("Provide Hotel and Guest Names");
             errorLabel.setForeground(Color.RED);
             return;
@@ -322,10 +428,10 @@ public class UserPanel extends javax.swing.JPanel {
             errorLabel.setForeground(Color.ORANGE);
         }
         finally {
-            hotelNameComboBox.setSelectedIndex(0);
-            hotelNameComboBox.setForeground(Color.GRAY);
-            guestNameTextField.setText("Guest Name");
-            guestNameTextField.setForeground(Color.GRAY);
+            bookHotelNameComboBox.setSelectedIndex(0);
+            bookHotelNameComboBox.setForeground(Color.GRAY);
+            bookGuestNameField.setText("Guest Name");
+            bookGuestNameField.setForeground(Color.GRAY);
             roomRadioButton.setSelected(true);
         }
     }//GEN-LAST:event_unbookButtonActionPerformed
@@ -334,15 +440,15 @@ public class UserPanel extends javax.swing.JPanel {
         String hotel, guest, roomtype;
         ResultSet maxRoomsRS, countGuestsRS;
 
-        hotel = hotelNameComboBox.getSelectedItem().toString();
-        guest = guestNameTextField.getText();
+        hotel = bookHotelNameComboBox.getSelectedItem().toString();
+        guest = bookGuestNameField.getText();
 
         roomtype = "Room";
         if (suiteRadioButton.isSelected()) roomtype = "Suite";
         else if (deluxeRadioButton.isSelected()) roomtype = "Deluxe";
 
-        if (hotelNameComboBox.getSelectedIndex() == 0 || hotelNameComboBox.getSelectedIndex() == -1
-                || guestNameTextField.getForeground() == Color.GRAY || "".equals(guest)) {
+        if (bookHotelNameComboBox.getSelectedIndex() == 0 || bookHotelNameComboBox.getSelectedIndex() == -1
+                || bookGuestNameField.getForeground() == Color.GRAY || "".equals(guest)) {
             errorLabel.setText("Provide Hotel and Guest Names");
             errorLabel.setForeground(Color.RED);
             return;
@@ -360,25 +466,20 @@ public class UserPanel extends javax.swing.JPanel {
             countGuestsPS.setString(1, hotel);
             countGuestsRS = countGuestsPS.executeQuery();
 
-            if (maxRoomsRS.next()) {
-                countGuestsRS.next();
-                if (countGuestsRS.getInt(1) < maxRoomsRS.getInt(1)) {
-                    insertPS.setString(1, guest);
-                    insertPS.setString(2, hotel);
-                    insertPS.setString(3, roomtype);
-                    insertPS.setString(4, roomtype);
-                    insertPS.execute();
+            maxRoomsRS.next();
+            countGuestsRS.next();
+            if (countGuestsRS.getInt(1) < maxRoomsRS.getInt(1)) {
+                insertPS.setString(1, guest);
+                insertPS.setString(2, hotel);
+                insertPS.setString(3, roomtype);
+                insertPS.setString(4, roomtype);
+                insertPS.execute();
 
-                    errorLabel.setText("Room Booked");
-                    errorLabel.setForeground(Color.BLUE);
-                }
-                else {
-                    errorLabel.setText("Insufficient Rooms");
-                    errorLabel.setForeground(Color.RED);
-                }
+                errorLabel.setText("Room Booked");
+                errorLabel.setForeground(Color.BLUE);
             }
             else {
-                errorLabel.setText("Hotel Not Found");
+                errorLabel.setText("Insufficient Rooms");
                 errorLabel.setForeground(Color.RED);
             }
         }
@@ -387,40 +488,178 @@ public class UserPanel extends javax.swing.JPanel {
             errorLabel.setForeground(Color.ORANGE);
         }
         finally {
-            hotelNameComboBox.setSelectedIndex(0);
-            hotelNameComboBox.setForeground(Color.GRAY);
-            guestNameTextField.setText("Guest Name");
-            guestNameTextField.setForeground(Color.GRAY);
+            bookHotelNameComboBox.setSelectedIndex(0);
+            bookHotelNameComboBox.setForeground(Color.GRAY);
+            bookGuestNameField.setText("Guest Name");
+            bookGuestNameField.setForeground(Color.GRAY);
             roomRadioButton.setSelected(true);
         }
     }//GEN-LAST:event_bookButtonActionPerformed
 
-    private void hotelNameComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_hotelNameComboBoxItemStateChanged
+    private void bookHotelNameComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_bookHotelNameComboBoxItemStateChanged
         SwingUtilities.invokeLater(() -> {
-            if (hotelNameComboBox.getSelectedIndex() == 0 || hotelNameComboBox.getSelectedIndex() == -1) {
-                hotelNameComboBox.setSelectedIndex(0);
-                hotelNameComboBox.setForeground(Color.GRAY);
+            if (bookHotelNameComboBox.getSelectedIndex() == 0 || bookHotelNameComboBox.getSelectedIndex() == -1) {
+                bookHotelNameComboBox.setSelectedIndex(0);
+                bookHotelNameComboBox.setForeground(Color.GRAY);
             }
-            else hotelNameComboBox.setForeground(Color.BLACK);
+            else bookHotelNameComboBox.setForeground(Color.BLACK);
         });
-    }//GEN-LAST:event_hotelNameComboBoxItemStateChanged
+    }//GEN-LAST:event_bookHotelNameComboBoxItemStateChanged
+
+    private void serviceNameFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_serviceNameFieldFocusGained
+        if (serviceNameField.getForeground() == Color.GRAY) {
+            serviceNameField.setText("");
+            serviceNameField.setForeground(Color.BLACK);
+            serviceNameField.setCaretPosition(0);
+        }
+    }//GEN-LAST:event_serviceNameFieldFocusGained
+
+    private void serviceNameFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_serviceNameFieldFocusLost
+        if ("".equals(serviceNameField.getText()) || serviceNameField.getForeground() == Color.GRAY) {
+            serviceNameField.setForeground(Color.GRAY);
+            serviceNameField.setText("Service Description");
+        }
+    }//GEN-LAST:event_serviceNameFieldFocusLost
+
+    private void costFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_costFieldFocusGained
+        if (costField.getForeground() == Color.GRAY) {
+            costField.setText("");
+            costField.setForeground(Color.BLACK);
+            costField.setCaretPosition(0);
+        }
+    }//GEN-LAST:event_costFieldFocusGained
+
+    private void costFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_costFieldFocusLost
+        if ("".equals(costField.getText()) || costField.getForeground() == Color.GRAY) {
+            costField.setForeground(Color.GRAY);
+            costField.setText("Cost in ₹");
+        }
+    }//GEN-LAST:event_costFieldFocusLost
+
+    private void costFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_costFieldKeyTyped
+        char c;
+        String orig;
+
+        c = evt.getKeyChar();
+        orig = costField.getText();
+
+        if (Character.isDigit(c)) costField.setText(orig + c);
+        else if (c == '\b' && orig.length() != 0) costField.setText(orig.substring(0, orig.length() - 1));
+    }//GEN-LAST:event_costFieldKeyTyped
+
+    private void cancelServeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelServeButtonActionPerformed
+        errorLabel.setText("");
+        errorLabel.setForeground(Color.RED);
+        serveHotelNameComboBox.setSelectedIndex(0);
+        serveHotelNameComboBox.setForeground(Color.GRAY);
+        serveGuestNameField.setText("Guest Name");
+        serveGuestNameField.setForeground(Color.GRAY);
+        serviceNameField.setText("Service Description");
+        serviceNameField.setForeground(Color.GRAY);
+        costField.setText("Cost in ₹");
+        costField.setForeground(Color.GRAY);
+    }//GEN-LAST:event_cancelServeButtonActionPerformed
+
+    private void recordServeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recordServeButtonActionPerformed
+        int cost;
+        String hotel, guest, service;
+
+        hotel = serveHotelNameComboBox.getSelectedItem().toString();
+        guest = serveGuestNameField.getText();
+        service = serviceNameField.getText();
+
+        if (serveHotelNameComboBox.getSelectedIndex() == 0 || serveHotelNameComboBox.getSelectedIndex() == -1
+                || serveGuestNameField.getForeground() == Color.GRAY || "".equals(guest)
+                || serviceNameField.getForeground() == Color.GRAY || "".equals(service)
+                || costField.getForeground() == Color.GRAY || "".equals(costField.getText())) {
+            errorLabel.setText("Provide Hotel, Guest, Service, Cost");
+            errorLabel.setForeground(Color.RED);
+            return;
+        }
+
+        cost = Integer.parseInt(costField.getText());
+
+        try (
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/hotelmgmt", "hotelmgmt", "hotelmgmt");
+            PreparedStatement ps = con.prepareStatement("insert into services (name, hotel, service, cost) values(?, ?, ?, ?)")
+        ) {
+            ps.setString(1, guest);
+            ps.setString(2, hotel);
+            ps.setString(3, service);
+            ps.setInt(4, cost);
+
+            if (ps.executeUpdate() != 0) {
+                errorLabel.setText("Service Recorded");
+                errorLabel.setForeground(Color.BLUE);
+            }
+            else {
+                errorLabel.setText("Guest not Found");
+                errorLabel.setForeground(Color.BLUE);
+            }
+        }
+        catch(SQLException e) {
+            errorLabel.setText("Database Connection Failed");
+            errorLabel.setForeground(Color.ORANGE);
+        }
+        finally {
+            serveHotelNameComboBox.setSelectedIndex(0);
+            serveHotelNameComboBox.setForeground(Color.GRAY);
+            serveGuestNameField.setText("Guest Name");
+            serveGuestNameField.setForeground(Color.GRAY);
+            serviceNameField.setText("Service Description");
+            serviceNameField.setForeground(Color.GRAY);
+            costField.setText("Cost in ₹");
+            costField.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_recordServeButtonActionPerformed
+
+    private void serveHotelNameComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_serveHotelNameComboBoxItemStateChanged
+        SwingUtilities.invokeLater(() -> {
+            if (bookHotelNameComboBox.getSelectedIndex() == 0 || bookHotelNameComboBox.getSelectedIndex() == -1) {
+                bookHotelNameComboBox.setSelectedIndex(0);
+                bookHotelNameComboBox.setForeground(Color.GRAY);
+            }
+            else bookHotelNameComboBox.setForeground(Color.BLACK);
+        });
+    }//GEN-LAST:event_serveHotelNameComboBoxItemStateChanged
+
+    private void serveGuestNameFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_serveGuestNameFieldFocusGained
+        if (serveGuestNameField.getForeground() == Color.GRAY) {
+            serveGuestNameField.setText("");
+            serveGuestNameField.setForeground(Color.BLACK);
+            serveGuestNameField.setCaretPosition(0);
+        }
+    }//GEN-LAST:event_serveGuestNameFieldFocusGained
+
+    private void serveGuestNameFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_serveGuestNameFieldFocusLost
+        if ("".equals(serveGuestNameField.getText()) || serveGuestNameField.getForeground() == Color.GRAY) {
+            serveGuestNameField.setForeground(Color.GRAY);
+            serveGuestNameField.setText("Guest Name");
+        }
+    }//GEN-LAST:event_serveGuestNameFieldFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel activityLabel;
     private javax.swing.JPanel billPane;
     private javax.swing.JButton bookButton;
+    private javax.swing.JTextField bookGuestNameField;
+    private javax.swing.JComboBox bookHotelNameComboBox;
     private javax.swing.JPanel bookPane;
-    private javax.swing.JButton cancelButton;
+    private javax.swing.JButton cancelBookButton;
+    private javax.swing.JButton cancelServeButton;
     private javax.swing.JTabbedPane cashierTabbedPane;
+    private javax.swing.JTextField costField;
     private javax.swing.JRadioButton deluxeRadioButton;
     private javax.swing.JLabel errorLabel;
-    private javax.swing.JTextField guestNameTextField;
     private javax.swing.JLabel headerLabel;
-    private javax.swing.JComboBox hotelNameComboBox;
     private javax.swing.JButton logoutButton;
+    private javax.swing.JButton recordServeButton;
     private javax.swing.JRadioButton roomRadioButton;
     private javax.swing.ButtonGroup roomTypeButtonGroup;
+    private javax.swing.JTextField serveGuestNameField;
+    private javax.swing.JComboBox serveHotelNameComboBox;
     private javax.swing.JPanel servePane;
+    private javax.swing.JTextField serviceNameField;
     private javax.swing.JRadioButton suiteRadioButton;
     private javax.swing.JButton unbookButton;
     // End of variables declaration//GEN-END:variables

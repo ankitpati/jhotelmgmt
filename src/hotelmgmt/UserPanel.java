@@ -801,6 +801,7 @@ public class UserPanel extends javax.swing.JPanel {
         String hotel, guest;
         ResultSet billRS, amountRS;
 
+        days = 0;
         checkout = checkoutCheckbox.isSelected();
         hotel = billHotelNameComboBox.getSelectedItem().toString();
         guest = billGuestNameField.getText();
@@ -844,7 +845,7 @@ public class UserPanel extends javax.swing.JPanel {
 
             if (delBillPS.executeUpdate() != 0) {
                 amountRS.next();
-                errorLabel.setText("Bill Amount is ₹ " + amountRS.getInt(1));
+                errorLabel.setText("Bill Amount is ₹ " + (days*1000 + amountRS.getInt(1)));
                 errorLabel.setForeground(Color.BLUE);
             }
             else {

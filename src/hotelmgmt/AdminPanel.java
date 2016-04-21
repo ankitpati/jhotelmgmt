@@ -375,7 +375,7 @@ public class AdminPanel extends javax.swing.JPanel {
 
         try (
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost/hotelmgmt", "hotelmgmt", "hotelmgmt");
-            PreparedStatement ps = con.prepareStatement("insert into users values(?, ?, ?) on duplicate key update password=?, admin=?")
+            PreparedStatement ps = con.prepareStatement("insert into users (username, password, admin) values(?, ?, ?) on duplicate key update password=?, admin=?")
         ) {
             ps.setString(1, username);
             ps.setString(2, password);
@@ -449,7 +449,7 @@ public class AdminPanel extends javax.swing.JPanel {
 
         try (
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost/hotelmgmt", "hotelmgmt", "hotelmgmt");
-            PreparedStatement ps = con.prepareStatement("insert into hotels values(?, ?) on duplicate key update rooms=?")
+            PreparedStatement ps = con.prepareStatement("insert into hotels (hotel, rooms) values(?, ?) on duplicate key update rooms=?")
         ) {
             ps.setString(1, hotel);
             ps.setInt(2, rooms);

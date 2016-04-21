@@ -49,6 +49,7 @@ public class UserPanel extends javax.swing.JPanel {
                 hotel = rs.getString(1);
                 bookHotelNameComboBox.addItem(hotel);
                 serveHotelNameComboBox.addItem(hotel);
+                billHotelNameComboBox.addItem(hotel);
             }
         }
         catch(SQLException e) {
@@ -88,6 +89,12 @@ public class UserPanel extends javax.swing.JPanel {
         serveHotelNameComboBox = new javax.swing.JComboBox();
         serveGuestNameField = new javax.swing.JTextField();
         billPane = new javax.swing.JPanel();
+        billHotelNameComboBox = new javax.swing.JComboBox();
+        billGuestNameField = new javax.swing.JTextField();
+        checkoutCheckbox = new javax.swing.JCheckBox();
+        daysField = new javax.swing.JTextField();
+        billButton = new javax.swing.JButton();
+        billCancelButton = new javax.swing.JButton();
         logoutButton = new javax.swing.JButton();
 
         headerLabel.setFont(new java.awt.Font("DejaVu Sans", 1, 36)); // NOI18N
@@ -318,15 +325,105 @@ public class UserPanel extends javax.swing.JPanel {
 
         cashierTabbedPane.addTab("Serve", servePane);
 
+        billHotelNameComboBox.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        billHotelNameComboBox.setForeground(java.awt.Color.gray);
+        billHotelNameComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Hotel Name" }));
+        billHotelNameComboBox.setToolTipText("Hotel Name");
+        billHotelNameComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                billHotelNameComboBoxItemStateChanged(evt);
+            }
+        });
+
+        billGuestNameField.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        billGuestNameField.setForeground(java.awt.Color.gray);
+        billGuestNameField.setText("Guest Name");
+        billGuestNameField.setToolTipText("Guest Name");
+        billGuestNameField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                billGuestNameFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                billGuestNameFieldFocusLost(evt);
+            }
+        });
+
+        checkoutCheckbox.setText("Checkout");
+        checkoutCheckbox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkoutCheckboxActionPerformed(evt);
+            }
+        });
+
+        daysField.setEditable(false);
+        daysField.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        daysField.setForeground(java.awt.Color.gray);
+        daysField.setText("Days of Stay");
+        daysField.setToolTipText("Days of Stay");
+        daysField.setEnabled(false);
+        daysField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                daysFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                daysFieldFocusLost(evt);
+            }
+        });
+        daysField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                daysFieldKeyTyped(evt);
+            }
+        });
+
+        billButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        billButton.setText("Bill");
+        billButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                billButtonActionPerformed(evt);
+            }
+        });
+
+        billCancelButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        billCancelButton.setText("Cancel");
+        billCancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                billCancelButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout billPaneLayout = new javax.swing.GroupLayout(billPane);
         billPane.setLayout(billPaneLayout);
         billPaneLayout.setHorizontalGroup(
             billPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 548, Short.MAX_VALUE)
+            .addGroup(billPaneLayout.createSequentialGroup()
+                .addGroup(billPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(daysField, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(billPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(billPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(billGuestNameField, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(billHotelNameComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, 168, Short.MAX_VALUE))
+                        .addComponent(checkoutCheckbox)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
+                .addComponent(billButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(billCancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         billPaneLayout.setVerticalGroup(
             billPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 159, Short.MAX_VALUE)
+            .addGroup(billPaneLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(billHotelNameComboBox, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(billGuestNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkoutCheckbox)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(billPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(daysField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(billCancelButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(billButton))
+                .addGap(12, 12, 12))
         );
 
         cashierTabbedPane.addTab("Bill", billPane);
@@ -615,11 +712,11 @@ public class UserPanel extends javax.swing.JPanel {
 
     private void serveHotelNameComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_serveHotelNameComboBoxItemStateChanged
         SwingUtilities.invokeLater(() -> {
-            if (bookHotelNameComboBox.getSelectedIndex() == 0 || bookHotelNameComboBox.getSelectedIndex() == -1) {
-                bookHotelNameComboBox.setSelectedIndex(0);
-                bookHotelNameComboBox.setForeground(Color.GRAY);
+            if (serveHotelNameComboBox.getSelectedIndex() == 0 || serveHotelNameComboBox.getSelectedIndex() == -1) {
+                serveHotelNameComboBox.setSelectedIndex(0);
+                serveHotelNameComboBox.setForeground(Color.GRAY);
             }
-            else bookHotelNameComboBox.setForeground(Color.BLACK);
+            else serveHotelNameComboBox.setForeground(Color.BLACK);
         });
     }//GEN-LAST:event_serveHotelNameComboBoxItemStateChanged
 
@@ -638,8 +735,88 @@ public class UserPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_serveGuestNameFieldFocusLost
 
+    private void billHotelNameComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_billHotelNameComboBoxItemStateChanged
+        SwingUtilities.invokeLater(() -> {
+            if (billHotelNameComboBox.getSelectedIndex() == 0 || billHotelNameComboBox.getSelectedIndex() == -1) {
+                billHotelNameComboBox.setSelectedIndex(0);
+                billHotelNameComboBox.setForeground(Color.GRAY);
+            }
+            else billHotelNameComboBox.setForeground(Color.BLACK);
+        });
+    }//GEN-LAST:event_billHotelNameComboBoxItemStateChanged
+
+    private void billGuestNameFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_billGuestNameFieldFocusGained
+        if (billGuestNameField.getForeground() == Color.GRAY) {
+            billGuestNameField.setText("");
+            billGuestNameField.setForeground(Color.BLACK);
+            billGuestNameField.setCaretPosition(0);
+        }
+    }//GEN-LAST:event_billGuestNameFieldFocusGained
+
+    private void billGuestNameFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_billGuestNameFieldFocusLost
+        if ("".equals(billGuestNameField.getText()) || billGuestNameField.getForeground() == Color.GRAY) {
+            billGuestNameField.setForeground(Color.GRAY);
+            billGuestNameField.setText("Guest Name");
+        }
+    }//GEN-LAST:event_billGuestNameFieldFocusLost
+
+    private void daysFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_daysFieldFocusGained
+        if (daysField.getForeground() == Color.GRAY) {
+            daysField.setText("");
+            daysField.setForeground(Color.BLACK);
+            daysField.setCaretPosition(0);
+        }
+    }//GEN-LAST:event_daysFieldFocusGained
+
+    private void daysFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_daysFieldFocusLost
+        if ("".equals(daysField.getText()) || daysField.getForeground() == Color.GRAY) {
+            daysField.setForeground(Color.GRAY);
+            daysField.setText("Days of Stay");
+        }
+    }//GEN-LAST:event_daysFieldFocusLost
+
+    private void daysFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_daysFieldKeyTyped
+        char c;
+        String orig;
+
+        c = evt.getKeyChar();
+        orig = daysField.getText();
+
+        if (Character.isDigit(c)) daysField.setText(orig + c);
+        else if (c == '\b' && orig.length() != 0) daysField.setText(orig.substring(0, orig.length() - 1));
+    }//GEN-LAST:event_daysFieldKeyTyped
+
+    private void checkoutCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkoutCheckboxActionPerformed
+        if (checkoutCheckbox.isSelected()) daysField.setEnabled(true);
+        else {
+            daysField.setEnabled(false);
+            daysField.setText("Days of Stay");
+            daysField.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_checkoutCheckboxActionPerformed
+
+    private void billButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_billButtonActionPerformed
+
+    private void billCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billCancelButtonActionPerformed
+        errorLabel.setText("");
+        errorLabel.setForeground(Color.RED);
+        billHotelNameComboBox.setSelectedIndex(0);
+        billHotelNameComboBox.setForeground(Color.GRAY);
+        billGuestNameField.setText("Guest Name");
+        billGuestNameField.setForeground(Color.GRAY);
+        daysField.setText("Days of Stay");
+        daysField.setForeground(Color.GRAY);
+        checkoutCheckbox.setSelected(false);
+    }//GEN-LAST:event_billCancelButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel activityLabel;
+    private javax.swing.JButton billButton;
+    private javax.swing.JButton billCancelButton;
+    private javax.swing.JTextField billGuestNameField;
+    private javax.swing.JComboBox billHotelNameComboBox;
     private javax.swing.JPanel billPane;
     private javax.swing.JButton bookButton;
     private javax.swing.JTextField bookGuestNameField;
@@ -648,7 +825,9 @@ public class UserPanel extends javax.swing.JPanel {
     private javax.swing.JButton cancelBookButton;
     private javax.swing.JButton cancelServeButton;
     private javax.swing.JTabbedPane cashierTabbedPane;
+    private javax.swing.JCheckBox checkoutCheckbox;
     private javax.swing.JTextField costField;
+    private javax.swing.JTextField daysField;
     private javax.swing.JRadioButton deluxeRadioButton;
     private javax.swing.JLabel errorLabel;
     private javax.swing.JLabel headerLabel;

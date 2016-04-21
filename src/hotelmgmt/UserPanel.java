@@ -294,7 +294,40 @@ public class UserPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void unbookButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unbookButtonActionPerformed
-        // TODO add your handling code here:
+        String hotel, guest;
+
+        hotel = hotelNameComboBox.getSelectedItem().toString();
+        guest = guestNameTextField.getText();
+
+        if (hotelNameComboBox.getSelectedIndex() == 0 || hotelNameComboBox.getSelectedIndex() == -1
+                || guestNameTextField.getForeground() == Color.GRAY || "".equals(guest)) {
+            errorLabel.setText("Provide Hotel and Guest Names");
+            errorLabel.setForeground(Color.RED);
+            return;
+        }
+
+        try (
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/hotelmgmt", "hotelmgmt", "hotelmgmt");
+            PreparedStatement ps = con.prepareStatement("delete from guests where name=? and hotel=?")
+        ) {
+            ps.setString(1, guest);
+            ps.setString(2, hotel);
+            ps.execute();
+
+            errorLabel.setText("Room Unbooked");
+            errorLabel.setForeground(Color.BLUE);
+        }
+        catch(SQLException e) {
+            errorLabel.setText("Database Connection Failed");
+            errorLabel.setForeground(Color.ORANGE);
+        }
+        finally {
+            hotelNameComboBox.setSelectedIndex(0);
+            hotelNameComboBox.setForeground(Color.GRAY);
+            guestNameTextField.setText("Guest Name");
+            guestNameTextField.setForeground(Color.GRAY);
+            roomRadioButton.setSelected(true);
+        }
     }//GEN-LAST:event_unbookButtonActionPerformed
 
     private void bookButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookButtonActionPerformed

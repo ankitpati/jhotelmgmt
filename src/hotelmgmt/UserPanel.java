@@ -20,16 +20,36 @@
 package hotelmgmt;
 
 import java.awt.*;
+import javax.swing.*;
+import java.sql.*;
 
 public class UserPanel extends javax.swing.JPanel {
     final static long serialVersionUID = 0l;
     String username;
-    
+
     public UserPanel(String username) {
         initComponents();
 
         this.username = username;
         activityLabel.setText(activityLabel.getText() + username);
+
+        populateHotelNameComboBox();
+    }
+
+    private void populateHotelNameComboBox() {
+        ResultSet rs;
+
+        try (
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/hotelmgmt", "hotelmgmt", "hotelmgmt");
+            PreparedStatement ps = con.prepareStatement("select hotel from hotels")
+        ) {
+            rs = ps.executeQuery();
+            while (rs.next()) hotelNameComboBox.addItem(rs.getString(1));
+        }
+        catch(SQLException e) {
+            errorLabel.setText("Database Connection Failed");
+            errorLabel.setForeground(Color.ORANGE);
+        }
     }
 
     /**
@@ -47,7 +67,6 @@ public class UserPanel extends javax.swing.JPanel {
         errorLabel = new javax.swing.JLabel();
         cashierTabbedPane = new javax.swing.JTabbedPane();
         bookPane = new javax.swing.JPanel();
-        hotelNameField = new javax.swing.JTextField();
         guestNameTextField = new javax.swing.JTextField();
         roomRadioButton = new javax.swing.JRadioButton();
         suiteRadioButton = new javax.swing.JRadioButton();
@@ -55,6 +74,7 @@ public class UserPanel extends javax.swing.JPanel {
         cancelButton = new javax.swing.JButton();
         unbookButton = new javax.swing.JButton();
         bookButton = new javax.swing.JButton();
+        hotelNameComboBox = new javax.swing.JComboBox();
         servePane = new javax.swing.JPanel();
         billPane = new javax.swing.JPanel();
         logoutButton = new javax.swing.JButton();
@@ -71,19 +91,6 @@ public class UserPanel extends javax.swing.JPanel {
         errorLabel.setForeground(new java.awt.Color(255, 0, 0));
         errorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        hotelNameField.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
-        hotelNameField.setForeground(java.awt.Color.gray);
-        hotelNameField.setText("Hotel Name");
-        hotelNameField.setToolTipText("Hotel Name");
-        hotelNameField.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                hotelNameFieldFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                hotelNameFieldFocusLost(evt);
-            }
-        });
-
         guestNameTextField.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         guestNameTextField.setForeground(java.awt.Color.gray);
         guestNameTextField.setText("Guest Name");
@@ -98,6 +105,7 @@ public class UserPanel extends javax.swing.JPanel {
         });
 
         roomTypeButtonGroup.add(roomRadioButton);
+        roomRadioButton.setSelected(true);
         roomRadioButton.setText("Room");
 
         roomTypeButtonGroup.add(suiteRadioButton);
@@ -130,21 +138,31 @@ public class UserPanel extends javax.swing.JPanel {
             }
         });
 
+        hotelNameComboBox.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        hotelNameComboBox.setForeground(java.awt.Color.gray);
+        hotelNameComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Hotel Name" }));
+        hotelNameComboBox.setToolTipText("Hotel Name");
+        hotelNameComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                hotelNameComboBoxItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout bookPaneLayout = new javax.swing.GroupLayout(bookPane);
         bookPane.setLayout(bookPaneLayout);
         bookPaneLayout.setHorizontalGroup(
             bookPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bookPaneLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(bookPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(bookPaneLayout.createSequentialGroup()
+                .addGroup(bookPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bookPaneLayout.createSequentialGroup()
                         .addComponent(bookButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(unbookButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(guestNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(hotelNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(guestNameTextField, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(hotelNameComboBox, 0, 445, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(bookPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(roomRadioButton)
@@ -158,8 +176,9 @@ public class UserPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(bookPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(bookPaneLayout.createSequentialGroup()
-                        .addComponent(hotelNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                        .addGap(2, 2, 2)
+                        .addComponent(hotelNameComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(guestNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(bookPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -171,9 +190,8 @@ public class UserPanel extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(suiteRadioButton)
                         .addGap(18, 18, 18)
-                        .addComponent(deluxeRadioButton)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(deluxeRadioButton)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         cashierTabbedPane.addTab("Book", bookPane);
@@ -244,21 +262,6 @@ public class UserPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void hotelNameFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_hotelNameFieldFocusGained
-        if (hotelNameField.getForeground() == Color.GRAY) {
-            hotelNameField.setText("");
-            hotelNameField.setForeground(Color.BLACK);
-            hotelNameField.setCaretPosition(0);
-        }
-    }//GEN-LAST:event_hotelNameFieldFocusGained
-
-    private void hotelNameFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_hotelNameFieldFocusLost
-        if ("".equals(hotelNameField.getText()) || hotelNameField.getForeground() == Color.GRAY) {
-            hotelNameField.setForeground(Color.GRAY);
-            hotelNameField.setText("Hotel Name");
-        }
-    }//GEN-LAST:event_hotelNameFieldFocusLost
-
     private void guestNameTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_guestNameTextFieldFocusGained
         if (guestNameTextField.getForeground() == Color.GRAY) {
             guestNameTextField.setText("");
@@ -281,8 +284,13 @@ public class UserPanel extends javax.swing.JPanel {
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         errorLabel.setText("");
         errorLabel.setForeground(Color.RED);
-        hotelNameField.setText("Hotel Name");
-        hotelNameField.setForeground(Color.GRAY);
+
+        if (cashierTabbedPane.getSelectedComponent() == bookPane) {
+            hotelNameComboBox.setSelectedIndex(0);
+            hotelNameComboBox.setForeground(Color.GRAY);
+            guestNameTextField.setText("Guest Name");
+            guestNameTextField.setForeground(Color.GRAY);
+        }
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void unbookButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unbookButtonActionPerformed
@@ -290,8 +298,79 @@ public class UserPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_unbookButtonActionPerformed
 
     private void bookButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookButtonActionPerformed
-        // TODO add your handling code here:
+        String hotel, guest, roomtype;
+        ResultSet maxRoomsRS, countGuestsRS;
+
+        hotel = hotelNameComboBox.getSelectedItem().toString();
+        guest = guestNameTextField.getText();
+        
+        roomtype = "Room";
+        if (suiteRadioButton.isSelected()) roomtype = "Suite";
+        else if (deluxeRadioButton.isSelected()) roomtype = "Deluxe";
+
+        if (hotelNameComboBox.getSelectedIndex() == 0 || hotelNameComboBox.getSelectedIndex() == -1
+                || guestNameTextField.getForeground() == Color.GRAY || "".equals(guest)) {
+            errorLabel.setText("Provide Hotel and Guest Names");
+            errorLabel.setForeground(Color.RED);
+            return;
+        }
+
+        try (
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/hotelmgmt", "hotelmgmt", "hotelmgmt");
+            PreparedStatement maxRoomsPS = con.prepareStatement("select rooms from hotels where hotel=?");
+            PreparedStatement countGuestsPS = con.prepareStatement("select count(*) from guests where hotel=?");
+            PreparedStatement insertPS = con.prepareStatement("insert into guests (name, hotel, roomtype) values(?, ?, ?) on duplicate key update roomtype=?")
+        ) {
+            maxRoomsPS.setString(1, hotel);
+            maxRoomsRS = maxRoomsPS.executeQuery();
+
+            countGuestsPS.setString(1, hotel);
+            countGuestsRS = countGuestsPS.executeQuery();
+
+            if (maxRoomsRS.next()) {
+                countGuestsRS.next();
+                if (countGuestsRS.getInt(1) < maxRoomsRS.getInt(1)) {
+                    insertPS.setString(1, guest);
+                    insertPS.setString(2, hotel);
+                    insertPS.setString(3, roomtype);
+                    insertPS.setString(4, roomtype);
+                    insertPS.execute();
+
+                    errorLabel.setText("Room Booked");
+                    errorLabel.setForeground(Color.BLUE);
+                }
+                else {
+                    errorLabel.setText("Insufficient Rooms");
+                    errorLabel.setForeground(Color.RED);
+                }
+            }
+            else {
+                errorLabel.setText("Hotel Not Found");
+                errorLabel.setForeground(Color.RED);
+            }
+        }
+        catch(SQLException e) {
+            errorLabel.setText("Database Connection Failed");
+            errorLabel.setForeground(Color.ORANGE);
+        }
+        finally {
+            hotelNameComboBox.setSelectedIndex(0);
+            hotelNameComboBox.setForeground(Color.GRAY);
+            guestNameTextField.setText("Guest Name");
+            guestNameTextField.setForeground(Color.GRAY);
+            roomRadioButton.setSelected(true);
+        }
     }//GEN-LAST:event_bookButtonActionPerformed
+
+    private void hotelNameComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_hotelNameComboBoxItemStateChanged
+        SwingUtilities.invokeLater(() -> {
+            if (hotelNameComboBox.getSelectedIndex() == 0 || hotelNameComboBox.getSelectedIndex() == -1) {
+                hotelNameComboBox.setSelectedIndex(0);
+                hotelNameComboBox.setForeground(Color.GRAY);
+            }
+            else hotelNameComboBox.setForeground(Color.BLACK);
+        });
+    }//GEN-LAST:event_hotelNameComboBoxItemStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel activityLabel;
@@ -304,7 +383,7 @@ public class UserPanel extends javax.swing.JPanel {
     private javax.swing.JLabel errorLabel;
     private javax.swing.JTextField guestNameTextField;
     private javax.swing.JLabel headerLabel;
-    private javax.swing.JTextField hotelNameField;
+    private javax.swing.JComboBox hotelNameComboBox;
     private javax.swing.JButton logoutButton;
     private javax.swing.JRadioButton roomRadioButton;
     private javax.swing.ButtonGroup roomTypeButtonGroup;

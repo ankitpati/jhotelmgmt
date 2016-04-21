@@ -796,7 +796,75 @@ public class UserPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_checkoutCheckboxActionPerformed
 
     private void billButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billButtonActionPerformed
-        // TODO add your handling code here:
+        int days;
+        boolean checkout;
+        String hotel, guest;
+        ResultSet billRS, amountRS;
+
+        checkout = checkoutCheckbox.isSelected();
+        hotel = billHotelNameComboBox.getSelectedItem().toString();
+        guest = billGuestNameField.getText();
+
+        if (billHotelNameComboBox.getSelectedIndex() == 0 || billHotelNameComboBox.getSelectedIndex() == -1
+                || billGuestNameField.getForeground() == Color.GRAY || "".equals(guest)) {
+            errorLabel.setText("Provide Hotel and Guest Names");
+            errorLabel.setForeground(Color.RED);
+            return;
+        }
+
+        if (checkout && (daysField.getForeground() == Color.GRAY || "".equals(daysField.getText()))) {
+            errorLabel.setText("Provide Days of Stay");
+            errorLabel.setForeground(Color.RED);
+            return;
+        }
+
+        if (checkout) days = Integer.parseInt(daysField.getText());
+
+        try (
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/hotelmgmt", "hotelmgmt", "hotelmgmt");
+            PreparedStatement billPS = con.prepareStatement("select service, cost from services where hotel=? and name=?");
+            PreparedStatement delBillPS = con.prepareStatement("delete from services where hotel=? and name=?");
+            PreparedStatement amountPS = con.prepareStatement("select sum(cost) from services where hotel=? and name=?");
+            PreparedStatement delGuestPS = con.prepareStatement("delete from guests where hotel=? and name=?")
+        ) {
+            billPS.setString(1, hotel);
+            billPS.setString(2, guest);
+
+            delBillPS.setString(1, hotel);
+            delBillPS.setString(2, guest);
+
+            amountPS.setString(1, hotel);
+            amountPS.setString(2, guest);
+
+            delBillPS.setString(1, hotel);
+            delBillPS.setString(2, guest);
+
+            billRS = billPS.executeQuery();
+            amountRS = amountPS.executeQuery();
+
+            if (delBillPS.executeUpdate() != 0) {
+                amountRS.next();
+                errorLabel.setText("Bill Amount is ₹ " + amountRS.getInt(1));
+                errorLabel.setForeground(Color.BLUE);
+            }
+            else {
+                errorLabel.setText("Guest or Services Not Found");
+                errorLabel.setForeground(Color.RED);
+            }
+        }
+        catch(SQLException e) {
+            errorLabel.setText("Database Connection Failed");
+            errorLabel.setForeground(Color.ORANGE);
+        }
+        finally {
+            billHotelNameComboBox.setSelectedIndex(0);
+            billHotelNameComboBox.setForeground(Color.GRAY);
+            billGuestNameField.setText("Guest Name");
+            billGuestNameField.setForeground(Color.GRAY);
+            daysField.setText("Days of Stay");
+            daysField.setForeground(Color.GRAY);
+            checkoutCheckbox.setSelected(false);
+        }
     }//GEN-LAST:event_billButtonActionPerformed
 
     private void billCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billCancelButtonActionPerformed

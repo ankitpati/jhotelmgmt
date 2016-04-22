@@ -86,21 +86,27 @@ public class HMSFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public final void renderLogin(String username) {
-        remove(currentPanel);
-        add(currentPanel = new LoginPanel(username));
-        pack();
+        SwingUtilities.invokeLater(() -> {
+            remove(currentPanel);
+            add(currentPanel = new LoginPanel(username));
+            pack();
+        });
     }
 
     public final void renderAdmin(String username) {
-        remove(currentPanel);
-        add(currentPanel = new AdminPanel(username));
-        pack();
+        SwingUtilities.invokeLater(() -> {
+            remove(currentPanel);
+            add(currentPanel = new AdminPanel(username));
+            pack();
+        });
     }
 
     public final void renderUser(String username) {
-        remove(currentPanel);
-        add(currentPanel = new UserPanel(username));
-        pack();
+        SwingUtilities.invokeLater(() -> {
+            remove(currentPanel);
+            add(currentPanel = new UserPanel(username));
+            pack();
+        });
     }
 
     public static void main(String args[]) {

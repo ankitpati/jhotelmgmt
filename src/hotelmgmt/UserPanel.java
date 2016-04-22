@@ -818,6 +818,9 @@ public class UserPanel extends javax.swing.JPanel {
 
             amountPS.setString(1, hotel);
             amountPS.setString(2, guest);
+            
+            delGuestPS.setString(1, hotel);
+            delGuestPS.setString(2, guest);
 
             delBillPS.setString(1, hotel);
             delBillPS.setString(2, guest);
@@ -834,6 +837,16 @@ public class UserPanel extends javax.swing.JPanel {
                 errorLabel.setText("Guest or Services Not Found");
                 errorLabel.setForeground(Color.RED);
             }
+            
+            if (checkout)
+                if (delGuestPS.executeUpdate() == 0){
+                    errorLabel.setText("Guest Not Found");
+                    errorLabel.setForeground(Color.RED);
+                }
+                else {
+                    errorLabel.setText("Checked Out, Bill: ₹ " + (days*1000 + amountRS.getInt(1)));
+                    errorLabel.setForeground(Color.BLUE);
+                }
         }
         catch(SQLException e) {
             errorLabel.setText("Database Connection Failed");

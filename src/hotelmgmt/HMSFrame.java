@@ -19,6 +19,7 @@
 
 package hotelmgmt;
 
+import java.awt.event.*;
 import javax.swing.*;
 
 public class HMSFrame extends javax.swing.JFrame {
@@ -27,9 +28,35 @@ public class HMSFrame extends javax.swing.JFrame {
     static HMSFrame self;
 
     public HMSFrame() {
+        JMenuItem themeMenuItem;
         initComponents();
+
+        for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+            themeMenu.add(themeMenuItem = new JMenuItem(info.getName()));
+            themeMenuItem.addActionListener((ActionEvent evt) -> themeActionPerformedHandler(evt));
+            if ("Nimbus".equals(themeMenuItem.getText())) themeMenuItem.doClick();
+        }
+
         add(currentPanel);
         pack();
+        setVisible(true);
+    }
+
+    private void themeActionPerformedHandler(ActionEvent evt) {
+        SwingUtilities.invokeLater(() -> {
+            try {
+                for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels())
+                    if (evt.getActionCommand().equals(info.getName())) {
+                        UIManager.setLookAndFeel(info.getClassName());
+                        break;
+                    }
+                SwingUtilities.updateComponentTreeUI(this);
+                pack();
+            }
+            catch (Exception ex) {
+                System.err.println("Cannot set "+evt.getActionCommand()+" theme.");
+            }
+        });
     }
 
     /**
@@ -43,11 +70,6 @@ public class HMSFrame extends javax.swing.JFrame {
 
         HMSFrameMenuBar = new javax.swing.JMenuBar();
         themeMenu = new javax.swing.JMenu();
-        nimbusMenuItem = new javax.swing.JMenuItem();
-        metalMenuItem = new javax.swing.JMenuItem();
-        motifMenuItem = new javax.swing.JMenuItem();
-        gtkMenuItem = new javax.swing.JMenuItem();
-        windowsMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Hotel Management System");
@@ -56,71 +78,12 @@ public class HMSFrame extends javax.swing.JFrame {
         getContentPane().setLayout(new java.awt.FlowLayout());
 
         themeMenu.setText("Theme");
-
-        nimbusMenuItem.setText("Nimbus");
-        nimbusMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                themeActionPerformedHandler(evt);
-            }
-        });
-        themeMenu.add(nimbusMenuItem);
-
-        metalMenuItem.setText("Metal");
-        metalMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                themeActionPerformedHandler(evt);
-            }
-        });
-        themeMenu.add(metalMenuItem);
-
-        motifMenuItem.setText("CDE/Motif");
-        motifMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                themeActionPerformedHandler(evt);
-            }
-        });
-        themeMenu.add(motifMenuItem);
-
-        gtkMenuItem.setText("GTK+");
-        gtkMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                themeActionPerformedHandler(evt);
-            }
-        });
-        themeMenu.add(gtkMenuItem);
-
-        windowsMenuItem.setText("Windows");
-        windowsMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                themeActionPerformedHandler(evt);
-            }
-        });
-        themeMenu.add(windowsMenuItem);
-
         HMSFrameMenuBar.add(themeMenu);
 
         setJMenuBar(HMSFrameMenuBar);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void themeActionPerformedHandler(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_themeActionPerformedHandler
-        SwingUtilities.invokeLater(() -> {
-            try {
-                for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                    if (evt.getActionCommand().equals(info.getName())) {
-                        UIManager.setLookAndFeel(info.getClassName());
-                        break;
-                    }
-                }
-                SwingUtilities.updateComponentTreeUI(this);
-                pack();
-            }
-            catch (Exception ex) {
-                System.err.println("Cannot set "+evt.getActionCommand()+" theme.");
-            }
-        });
-    }//GEN-LAST:event_themeActionPerformedHandler
 
     public final void renderLogin(String username) {
         remove(currentPanel);
@@ -141,42 +104,12 @@ public class HMSFrame extends javax.swing.JFrame {
     }
 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(HMSFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(HMSFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(HMSFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(HMSFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
         self = new HMSFrame();
-        self.setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar HMSFrameMenuBar;
-    private javax.swing.JMenuItem gtkMenuItem;
-    private javax.swing.JMenuItem metalMenuItem;
-    private javax.swing.JMenuItem motifMenuItem;
-    private javax.swing.JMenuItem nimbusMenuItem;
     private javax.swing.JMenu themeMenu;
-    private javax.swing.JMenuItem windowsMenuItem;
     // End of variables declaration//GEN-END:variables
 }
 /* end of HMSFrame.java */

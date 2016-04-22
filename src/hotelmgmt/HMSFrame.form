@@ -8,48 +8,6 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Theme"/>
           </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="nimbusMenuItem">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Nimbus"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="themeActionPerformedHandler"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="metalMenuItem">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Metal"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="themeActionPerformedHandler"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="motifMenuItem">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="CDE/Motif"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="themeActionPerformedHandler"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="gtkMenuItem">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="GTK+"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="themeActionPerformedHandler"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="windowsMenuItem">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Windows"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="themeActionPerformedHandler"/>
-              </Events>
-            </MenuItem>
-          </SubComponents>
         </Menu>
       </SubComponents>
     </Menu>

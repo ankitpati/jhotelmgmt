@@ -10,7 +10,7 @@ public class UserPanel extends javax.swing.JPanel {
     final static long serialVersionUID = 0l;
     String username;
 
-    final String initTableColumns[] = {"Description","Cost"}, initTableRows[][] = {};
+    final String initTableColumns[] = {"Description", "Cost"}, initTableRows[][] = {};
     DefaultTableModel billTableModel = new DefaultTableModel(initTableRows, initTableColumns) {
         public boolean isCellEditable(int row, int column) {
             return false;

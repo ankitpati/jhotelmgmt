@@ -3,11 +3,15 @@ package hotelmgmt;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.table.*;
 import java.sql.*;
 
 public class UserPanel extends javax.swing.JPanel {
     final static long serialVersionUID = 0l;
     String username;
+    
+    String initTableColumns[] = {"Description","Cost"}, initTableRows[][] = {};
+    DefaultTableModel billTableModel = new DefaultTableModel(initTableRows, initTableColumns);
 
     public UserPanel(String username) {
         initComponents();
@@ -15,9 +19,10 @@ public class UserPanel extends javax.swing.JPanel {
         this.username = username;
         activityLabel.setText(activityLabel.getText() + username);
 
+        billTable.setModel(billTableModel);   
         populateHotelNameComboBox();
     }
-
+    
     private void populateHotelNameComboBox() {
         String hotel;
         ResultSet rs;
@@ -77,6 +82,8 @@ public class UserPanel extends javax.swing.JPanel {
         daysField = new javax.swing.JTextField();
         billButton = new javax.swing.JButton();
         billCancelButton = new javax.swing.JButton();
+        billScrollPane = new javax.swing.JScrollPane();
+        billTable = new javax.swing.JTable();
         logoutButton = new javax.swing.JButton();
 
         headerLabel.setFont(new java.awt.Font("DejaVu Sans", 1, 36)); // NOI18N
@@ -373,6 +380,19 @@ public class UserPanel extends javax.swing.JPanel {
             }
         });
 
+        billTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2"
+            }
+        ));
+        billScrollPane.setViewportView(billTable);
+
         javax.swing.GroupLayout billPaneLayout = new javax.swing.GroupLayout(billPane);
         billPane.setLayout(billPaneLayout);
         billPaneLayout.setHorizontalGroup(
@@ -385,21 +405,28 @@ public class UserPanel extends javax.swing.JPanel {
                             .addComponent(billGuestNameField, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(billHotelNameComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, 168, Short.MAX_VALUE))
                         .addComponent(checkoutCheckbox)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
-                .addComponent(billButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(billCancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(billPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(billPaneLayout.createSequentialGroup()
+                        .addGap(0, 140, Short.MAX_VALUE)
+                        .addComponent(billButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(billCancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(billScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
         billPaneLayout.setVerticalGroup(
             billPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(billPaneLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(billHotelNameComboBox, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(billGuestNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(checkoutCheckbox)
+                .addGroup(billPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(billPaneLayout.createSequentialGroup()
+                        .addComponent(billHotelNameComboBox, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(billGuestNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(checkoutCheckbox))
+                    .addComponent(billScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(billPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(daysField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -427,7 +454,7 @@ public class UserPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(headerLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(activityLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cashierTabbedPane)
+                    .addComponent(cashierTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(errorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -778,7 +805,7 @@ public class UserPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_checkoutCheckboxActionPerformed
 
     private void billButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billButtonActionPerformed
-        int days;
+        int days, billRowCount;
         boolean checkout;
         String hotel, guest;
         ResultSet billRS, amountRS;
@@ -818,7 +845,7 @@ public class UserPanel extends javax.swing.JPanel {
 
             amountPS.setString(1, hotel);
             amountPS.setString(2, guest);
-            
+
             delGuestPS.setString(1, hotel);
             delGuestPS.setString(2, guest);
 
@@ -828,16 +855,18 @@ public class UserPanel extends javax.swing.JPanel {
             billRS = billPS.executeQuery();
             amountRS = amountPS.executeQuery();
 
-            if (delBillPS.executeUpdate() != 0) {
+            if ((billRowCount = delBillPS.executeUpdate()) != 0) {
                 amountRS.next();
                 errorLabel.setText("Bill Amount is ₹ " + (days*1000 + amountRS.getInt(1)));
                 errorLabel.setForeground(Color.BLUE);
+
+                billTable.setModel(billTableModel);
             }
             else {
                 errorLabel.setText("Guest or Services Not Found");
                 errorLabel.setForeground(Color.RED);
             }
-            
+
             if (checkout)
                 if (delGuestPS.executeUpdate() == 0){
                     errorLabel.setText("Guest Not Found");
@@ -873,6 +902,8 @@ public class UserPanel extends javax.swing.JPanel {
         daysField.setText("Days of Stay");
         daysField.setForeground(Color.GRAY);
         checkoutCheckbox.setSelected(false);
+        billTableModel.setDataVector(initTableRows, initTableColumns);
+        billTable.setModel(billTableModel);
     }//GEN-LAST:event_billCancelButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -882,6 +913,8 @@ public class UserPanel extends javax.swing.JPanel {
     private javax.swing.JTextField billGuestNameField;
     private javax.swing.JComboBox billHotelNameComboBox;
     private javax.swing.JPanel billPane;
+    private javax.swing.JScrollPane billScrollPane;
+    private javax.swing.JTable billTable;
     private javax.swing.JButton bookButton;
     private javax.swing.JTextField bookGuestNameField;
     private javax.swing.JComboBox bookHotelNameComboBox;

@@ -9,7 +9,7 @@ import java.sql.*;
 public class UserPanel extends javax.swing.JPanel {
     final static long serialVersionUID = 0l;
     String username;
-    
+
     final String initTableColumns[] = {"Description","Cost"}, initTableRows[][] = {};
     DefaultTableModel billTableModel = new DefaultTableModel(initTableRows, initTableColumns) {
         public boolean isCellEditable(int row, int column) {
@@ -23,10 +23,10 @@ public class UserPanel extends javax.swing.JPanel {
         this.username = username;
         activityLabel.setText(activityLabel.getText() + username);
 
-        billTable.setModel(billTableModel);   
+        billTable.setModel(billTableModel);
         populateHotelNameComboBox();
     }
-    
+
     private void populateHotelNameComboBox() {
         String hotel;
         ResultSet rs;
@@ -863,7 +863,7 @@ public class UserPanel extends javax.swing.JPanel {
                 amountRS.next();
                 errorLabel.setText("Bill Amount is ₹ " + (days*1000 + amountRS.getInt(1)));
                 errorLabel.setForeground(Color.BLUE);
-                
+
                 billRows = new String[billRowCount][];
                 for (i = 0; billRS.next(); ++i) {
                     billRows[i] = new String[2];

@@ -10,8 +10,12 @@ public class UserPanel extends javax.swing.JPanel {
     final static long serialVersionUID = 0l;
     String username;
     
-    String initTableColumns[] = {"Description","Cost"}, initTableRows[][] = {};
-    DefaultTableModel billTableModel = new DefaultTableModel(initTableRows, initTableColumns);
+    final String initTableColumns[] = {"Description","Cost"}, initTableRows[][] = {};
+    DefaultTableModel billTableModel = new DefaultTableModel(initTableRows, initTableColumns) {
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
 
     public UserPanel(String username) {
         initComponents();
@@ -805,9 +809,9 @@ public class UserPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_checkoutCheckboxActionPerformed
 
     private void billButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billButtonActionPerformed
-        int days, billRowCount;
+        int days, billRowCount, i;
         boolean checkout;
-        String hotel, guest;
+        String hotel, guest, billRows[][];
         ResultSet billRS, amountRS;
 
         days = 0;
@@ -859,7 +863,14 @@ public class UserPanel extends javax.swing.JPanel {
                 amountRS.next();
                 errorLabel.setText("Bill Amount is ₹ " + (days*1000 + amountRS.getInt(1)));
                 errorLabel.setForeground(Color.BLUE);
-
+                
+                billRows = new String[billRowCount][];
+                for (i = 0; billRS.next(); ++i) {
+                    billRows[i] = new String[2];
+                    billRows[i][0] = billRS.getString(1);
+                    billRows[i][1] = Integer.toString(billRS.getInt(2));
+                }
+                billTableModel.setDataVector(billRows, initTableColumns);
                 billTable.setModel(billTableModel);
             }
             else {

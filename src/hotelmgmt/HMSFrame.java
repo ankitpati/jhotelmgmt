@@ -36,7 +36,7 @@ public class HMSFrame extends javax.swing.JFrame {
                 pack();
             }
             catch (Exception ex) {
-                System.err.println("Cannot set "+evt.getActionCommand()+" theme.");
+                System.err.println("Cannot set " + evt.getActionCommand() + " theme.");
             }
         });
     }

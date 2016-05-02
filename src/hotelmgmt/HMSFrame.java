@@ -1,6 +1,7 @@
 /* HMSFrame.java */
 package hotelmgmt;
 
+import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -26,6 +27,8 @@ public class HMSFrame extends javax.swing.JFrame {
 
     private void themeActionPerformedHandler(ActionEvent evt) {
         SwingUtilities.invokeLater(() -> {
+            Point frameLocation;
+            frameLocation = getLocation();            
             try {
                 for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels())
                     if (evt.getActionCommand().equals(info.getName())) {
@@ -38,6 +41,7 @@ public class HMSFrame extends javax.swing.JFrame {
             catch (Exception ex) {
                 System.err.println("Cannot set " + evt.getActionCommand() + " theme.");
             }
+            setLocation(frameLocation);
         });
     }
 

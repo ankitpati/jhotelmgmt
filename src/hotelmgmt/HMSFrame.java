@@ -28,7 +28,7 @@ public class HMSFrame extends javax.swing.JFrame {
     private void themeActionPerformedHandler(ActionEvent evt) {
         SwingUtilities.invokeLater(() -> {
             Point frameLocation;
-            frameLocation = getLocation();            
+            frameLocation = getLocation();
             try {
                 for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels())
                     if (evt.getActionCommand().equals(info.getName())) {

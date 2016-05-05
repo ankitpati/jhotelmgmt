@@ -926,6 +926,7 @@ public class UserPanel extends javax.swing.JPanel {
         billHotelNameComboBox.setForeground(Color.GRAY);
         billGuestNameField.setText("Guest Name");
         billGuestNameField.setForeground(Color.GRAY);
+        daysField.setEnabled(false);
         daysField.setText("Days of Stay");
         daysField.setForeground(Color.GRAY);
         checkoutCheckbox.setSelected(false);

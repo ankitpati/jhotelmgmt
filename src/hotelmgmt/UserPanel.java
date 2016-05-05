@@ -85,7 +85,7 @@ public class UserPanel extends javax.swing.JPanel {
         checkoutCheckbox = new javax.swing.JCheckBox();
         daysField = new javax.swing.JTextField();
         billButton = new javax.swing.JButton();
-        billCancelButton = new javax.swing.JButton();
+        cancelBillButton = new javax.swing.JButton();
         billScrollPane = new javax.swing.JScrollPane();
         billTable = new javax.swing.JTable();
         logoutButton = new javax.swing.JButton();
@@ -106,6 +106,7 @@ public class UserPanel extends javax.swing.JPanel {
         bookGuestNameField.setForeground(java.awt.Color.gray);
         bookGuestNameField.setText("Guest Name");
         bookGuestNameField.setToolTipText("Guest Name");
+        bookGuestNameField.setNextFocusableComponent(roomRadioButton);
         bookGuestNameField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 bookGuestNameFieldFocusGained(evt);
@@ -118,12 +119,15 @@ public class UserPanel extends javax.swing.JPanel {
         roomTypeButtonGroup.add(roomRadioButton);
         roomRadioButton.setSelected(true);
         roomRadioButton.setText("Room");
+        roomRadioButton.setNextFocusableComponent(suiteRadioButton);
 
         roomTypeButtonGroup.add(suiteRadioButton);
         suiteRadioButton.setText("Suite");
+        suiteRadioButton.setNextFocusableComponent(deluxeRadioButton);
 
         roomTypeButtonGroup.add(deluxeRadioButton);
         deluxeRadioButton.setText("Deluxe");
+        deluxeRadioButton.setNextFocusableComponent(bookButton);
 
         cancelBookButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         cancelBookButton.setText("Cancel");
@@ -135,6 +139,7 @@ public class UserPanel extends javax.swing.JPanel {
 
         unbookButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         unbookButton.setText("Unbook");
+        unbookButton.setNextFocusableComponent(cancelBookButton);
         unbookButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 unbookButtonActionPerformed(evt);
@@ -143,6 +148,7 @@ public class UserPanel extends javax.swing.JPanel {
 
         bookButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         bookButton.setText("Book");
+        bookButton.setNextFocusableComponent(unbookButton);
         bookButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bookButtonActionPerformed(evt);
@@ -153,6 +159,7 @@ public class UserPanel extends javax.swing.JPanel {
         bookHotelNameComboBox.setForeground(java.awt.Color.gray);
         bookHotelNameComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Hotel Name" }));
         bookHotelNameComboBox.setToolTipText("Hotel Name");
+        bookHotelNameComboBox.setNextFocusableComponent(bookGuestNameField);
         bookHotelNameComboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 bookHotelNameComboBoxItemStateChanged(evt);
@@ -211,6 +218,7 @@ public class UserPanel extends javax.swing.JPanel {
         serviceNameField.setForeground(java.awt.Color.gray);
         serviceNameField.setText("Service Description");
         serviceNameField.setToolTipText("Service Description");
+        serviceNameField.setNextFocusableComponent(costField);
         serviceNameField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 serviceNameFieldFocusGained(evt);
@@ -225,6 +233,7 @@ public class UserPanel extends javax.swing.JPanel {
         costField.setForeground(java.awt.Color.gray);
         costField.setText("Cost in ₹");
         costField.setToolTipText("Cost in ₹");
+        costField.setNextFocusableComponent(recordServeButton);
         costField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 costFieldFocusGained(evt);
@@ -249,6 +258,7 @@ public class UserPanel extends javax.swing.JPanel {
 
         recordServeButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         recordServeButton.setText("Record");
+        recordServeButton.setNextFocusableComponent(cancelServeButton);
         recordServeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 recordServeButtonActionPerformed(evt);
@@ -259,6 +269,7 @@ public class UserPanel extends javax.swing.JPanel {
         serveHotelNameComboBox.setForeground(java.awt.Color.gray);
         serveHotelNameComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Hotel Name" }));
         serveHotelNameComboBox.setToolTipText("Hotel Name");
+        serveHotelNameComboBox.setNextFocusableComponent(serveGuestNameField);
         serveHotelNameComboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 serveHotelNameComboBoxItemStateChanged(evt);
@@ -269,6 +280,7 @@ public class UserPanel extends javax.swing.JPanel {
         serveGuestNameField.setForeground(java.awt.Color.gray);
         serveGuestNameField.setText("Guest Name");
         serveGuestNameField.setToolTipText("Guest Name");
+        serveGuestNameField.setNextFocusableComponent(serviceNameField);
         serveGuestNameField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 serveGuestNameFieldFocusGained(evt);
@@ -293,11 +305,8 @@ public class UserPanel extends javax.swing.JPanel {
                         .addComponent(recordServeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                         .addComponent(cancelServeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, servePaneLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(servePaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(costField, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(serviceNameField))))
+                    .addComponent(costField)
+                    .addComponent(serviceNameField, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
         );
         servePaneLayout.setVerticalGroup(
@@ -324,6 +333,7 @@ public class UserPanel extends javax.swing.JPanel {
         billHotelNameComboBox.setForeground(java.awt.Color.gray);
         billHotelNameComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Hotel Name" }));
         billHotelNameComboBox.setToolTipText("Hotel Name");
+        billHotelNameComboBox.setNextFocusableComponent(billGuestNameField);
         billHotelNameComboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 billHotelNameComboBoxItemStateChanged(evt);
@@ -334,6 +344,7 @@ public class UserPanel extends javax.swing.JPanel {
         billGuestNameField.setForeground(java.awt.Color.gray);
         billGuestNameField.setText("Guest Name");
         billGuestNameField.setToolTipText("Guest Name");
+        billGuestNameField.setNextFocusableComponent(checkoutCheckbox);
         billGuestNameField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 billGuestNameFieldFocusGained(evt);
@@ -344,6 +355,7 @@ public class UserPanel extends javax.swing.JPanel {
         });
 
         checkoutCheckbox.setText("Checkout");
+        checkoutCheckbox.setNextFocusableComponent(daysField);
         checkoutCheckbox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkoutCheckboxActionPerformed(evt);
@@ -356,6 +368,7 @@ public class UserPanel extends javax.swing.JPanel {
         daysField.setText("Days of Stay");
         daysField.setToolTipText("Days of Stay");
         daysField.setEnabled(false);
+        daysField.setNextFocusableComponent(billButton);
         daysField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 daysFieldFocusGained(evt);
@@ -372,17 +385,18 @@ public class UserPanel extends javax.swing.JPanel {
 
         billButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         billButton.setText("Bill");
+        billButton.setNextFocusableComponent(cancelBillButton);
         billButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 billButtonActionPerformed(evt);
             }
         });
 
-        billCancelButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
-        billCancelButton.setText("Cancel");
-        billCancelButton.addActionListener(new java.awt.event.ActionListener() {
+        cancelBillButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        cancelBillButton.setText("Cancel");
+        cancelBillButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                billCancelButtonActionPerformed(evt);
+                cancelBillButtonActionPerformed(evt);
             }
         });
 
@@ -410,7 +424,7 @@ public class UserPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
                         .addComponent(billButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(billCancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cancelBillButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, billPaneLayout.createSequentialGroup()
                         .addGroup(billPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(checkoutCheckbox)
@@ -436,7 +450,7 @@ public class UserPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(billPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(daysField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(billCancelButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cancelBillButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(billButton))
                 .addGap(12, 12, 12))
         );
@@ -905,7 +919,7 @@ public class UserPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_billButtonActionPerformed
 
-    private void billCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billCancelButtonActionPerformed
+    private void cancelBillButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBillButtonActionPerformed
         errorLabel.setText("");
         errorLabel.setForeground(Color.RED);
         billHotelNameComboBox.setSelectedIndex(0);
@@ -917,12 +931,11 @@ public class UserPanel extends javax.swing.JPanel {
         checkoutCheckbox.setSelected(false);
         billTableModel.setDataVector(initTableRows, initTableColumns);
         billTable.setModel(billTableModel);
-    }//GEN-LAST:event_billCancelButtonActionPerformed
+    }//GEN-LAST:event_cancelBillButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel activityLabel;
     private javax.swing.JButton billButton;
-    private javax.swing.JButton billCancelButton;
     private javax.swing.JTextField billGuestNameField;
     private javax.swing.JComboBox billHotelNameComboBox;
     private javax.swing.JPanel billPane;
@@ -932,6 +945,7 @@ public class UserPanel extends javax.swing.JPanel {
     private javax.swing.JTextField bookGuestNameField;
     private javax.swing.JComboBox bookHotelNameComboBox;
     private javax.swing.JPanel bookPane;
+    private javax.swing.JButton cancelBillButton;
     private javax.swing.JButton cancelBookButton;
     private javax.swing.JButton cancelServeButton;
     private javax.swing.JTabbedPane cashierTabbedPane;

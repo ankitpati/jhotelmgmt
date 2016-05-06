@@ -335,6 +335,7 @@ public class AdminPanel extends javax.swing.JPanel {
         usernameField.setForeground(Color.GRAY);
         passwordField.setText("Password");
         passwordField.setForeground(Color.GRAY);
+        adminCheckbox.setSelected(false);
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed

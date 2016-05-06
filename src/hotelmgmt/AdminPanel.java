@@ -56,6 +56,7 @@ public class AdminPanel extends javax.swing.JPanel {
         hotelNameField.setForeground(java.awt.Color.gray);
         hotelNameField.setText("Hotel Name");
         hotelNameField.setToolTipText("Hotel Name");
+        hotelNameField.setNextFocusableComponent(roomsField);
         hotelNameField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 hotelNameFieldFocusGained(evt);
@@ -70,6 +71,7 @@ public class AdminPanel extends javax.swing.JPanel {
         roomsField.setForeground(java.awt.Color.gray);
         roomsField.setText("Number of Rooms");
         roomsField.setToolTipText("Number of Rooms");
+        roomsField.setNextFocusableComponent(createButton);
         roomsField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 roomsFieldFocusGained(evt);
@@ -111,6 +113,7 @@ public class AdminPanel extends javax.swing.JPanel {
         usernameField.setForeground(java.awt.Color.gray);
         usernameField.setText("Username");
         usernameField.setToolTipText("Username");
+        usernameField.setNextFocusableComponent(passwordField);
         usernameField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 usernameFieldFocusGained(evt);
@@ -124,6 +127,7 @@ public class AdminPanel extends javax.swing.JPanel {
         passwordField.setForeground(java.awt.Color.gray);
         passwordField.setText("Password");
         passwordField.setToolTipText("Password");
+        passwordField.setNextFocusableComponent(adminCheckbox);
         passwordField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 passwordFieldFocusGained(evt);
@@ -134,6 +138,7 @@ public class AdminPanel extends javax.swing.JPanel {
         });
 
         adminCheckbox.setText("Administrator");
+        adminCheckbox.setNextFocusableComponent(createButton);
 
         javax.swing.GroupLayout userPaneLayout = new javax.swing.GroupLayout(userPane);
         userPane.setLayout(userPaneLayout);
@@ -179,6 +184,7 @@ public class AdminPanel extends javax.swing.JPanel {
 
         createButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         createButton.setText("Create");
+        createButton.setNextFocusableComponent(deleteButton);
         createButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 createButtonActionPerformed(evt);
@@ -187,6 +193,7 @@ public class AdminPanel extends javax.swing.JPanel {
 
         deleteButton.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
         deleteButton.setText("Delete");
+        deleteButton.setNextFocusableComponent(cancelButton);
         deleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteButtonActionPerformed(evt);

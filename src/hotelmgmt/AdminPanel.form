@@ -151,6 +151,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Hotel Name"/>
                 <Property name="toolTipText" type="java.lang.String" value="Hotel Name"/>
+                <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                  <ComponentRef name="roomsField"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="hotelNameFieldFocusGained"/>
@@ -168,6 +171,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Number of Rooms"/>
                 <Property name="toolTipText" type="java.lang.String" value="Number of Rooms"/>
+                <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                  <ComponentRef name="createButton"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="roomsFieldFocusGained"/>
@@ -225,6 +231,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Username"/>
                 <Property name="toolTipText" type="java.lang.String" value="Username"/>
+                <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                  <ComponentRef name="passwordField"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="usernameFieldFocusGained"/>
@@ -241,6 +250,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Password"/>
                 <Property name="toolTipText" type="java.lang.String" value="Password"/>
+                <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                  <ComponentRef name="adminCheckbox"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="passwordFieldFocusGained"/>
@@ -250,6 +262,9 @@
             <Component class="javax.swing.JCheckBox" name="adminCheckbox">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Administrator"/>
+                <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                  <ComponentRef name="createButton"/>
+                </Property>
               </Properties>
             </Component>
           </SubComponents>
@@ -284,6 +299,9 @@
           <Font name="DejaVu Sans" size="18" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Create"/>
+        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="deleteButton"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="createButtonActionPerformed"/>
@@ -295,6 +313,9 @@
           <Font name="DejaVu Sans" size="18" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Delete"/>
+        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="cancelButton"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteButtonActionPerformed"/>

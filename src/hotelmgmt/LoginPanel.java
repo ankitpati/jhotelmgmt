@@ -3,6 +3,7 @@ package hotelmgmt;
 
 import java.awt.*;
 import java.sql.*;
+import javax.swing.*;
 
 public class LoginPanel extends javax.swing.JPanel {
     final static long serialVersionUID = 0l;
@@ -18,6 +19,7 @@ public class LoginPanel extends javax.swing.JPanel {
         this();
         usernameField.setText(username);
         usernameField.setForeground(Color.BLACK);
+        SwingUtilities.invokeLater(() -> passwordField.grabFocus());
     }
 
     /**

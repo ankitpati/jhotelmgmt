@@ -22,6 +22,7 @@ public class UserPanel extends javax.swing.JPanel {
 
         this.username = username;
         activityLabel.setText(activityLabel.getText() + username);
+        SwingUtilities.invokeLater(() -> logoutButton.grabFocus());
 
         billTable.setModel(billTableModel);
         populateHotelNameComboBox();

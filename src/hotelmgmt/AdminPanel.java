@@ -3,6 +3,7 @@ package hotelmgmt;
 
 import java.awt.*;
 import java.sql.*;
+import javax.swing.*;
 
 public class AdminPanel extends javax.swing.JPanel {
     final static long serialVersionUID = 0l;
@@ -13,6 +14,8 @@ public class AdminPanel extends javax.swing.JPanel {
 
         this.username = username;
         activityLabel.setText(activityLabel.getText() + username);
+
+        SwingUtilities.invokeLater(() -> logoutButton.grabFocus());
     }
 
     /**

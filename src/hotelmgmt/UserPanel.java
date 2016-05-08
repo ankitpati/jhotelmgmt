@@ -11,14 +11,19 @@ public class UserPanel extends javax.swing.JPanel {
     String username;
 
     final String initTableColumns[] = {"Description", "Cost"}, initTableRows[][] = {};
-    DefaultTableModel billTableModel = new DefaultTableModel(initTableRows, initTableColumns) {
-        public boolean isCellEditable(int row, int column) {
-            return false;
-        }
-    };
+    DefaultTableModel billTableModel;
 
     public UserPanel(String username) {
         initComponents();
+
+        billTableModel = new DefaultTableModel(initTableRows, initTableColumns) {
+            final static long serialVersionUID = 0l;
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
 
         this.username = username;
         activityLabel.setText(activityLabel.getText() + username);

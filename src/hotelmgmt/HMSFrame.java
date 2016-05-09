@@ -23,6 +23,7 @@ public class HMSFrame extends javax.swing.JFrame {
         add(currentPanel);
         pack();
         setVisible(true);
+        SwingUtilities.invokeLater(() -> setLocationRelativeTo(null));
     }
 
     private void themeActionPerformedHandler(ActionEvent evt) {
